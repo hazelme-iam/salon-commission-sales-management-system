@@ -6,7 +6,8 @@ function Sidemenu() {
 
 return (
 <>
-    <aside className="app-sidebar" id="sidebar">
+<aside className="app-sidebar" id="sidebar">
+
         <div className="main-sidebar-header">
             <a href="/" className="holder-logo"></a>
         </div>
@@ -18,14 +19,14 @@ return (
                     <li>
                         <a href="">
                             <center>
-                                <img src={salon} className="transparent-shadow" style={{maxHeight: '150px'}} />
+                                <img src={salon} alt="Salon Logo" className="transparent-shadow" style={{maxHeight: '150px'}} />
+
                             </center>
                         </a>
                     </li>
                     <li>
                         <hr className="mt-3" />
                     </li>
-                    <li className="slide__category"><span className="category-name">Main</span></li>
                     <li className="slide">
                         <Link to="/" className="side-menu__item">
                             <i className="w-6 h-4 side-menu__icon bi bi-speedometer"></i>
@@ -44,7 +45,8 @@ return (
                         </Link>
                     </li>
                     <li className="slide">
-                        <Link to='/students_information' className="side-menu__item">
+                        <Link to='/sales' className="side-menu__item">
+
                             <i className="w-6 h-4 side-menu__icon bi bi-currency-dollar"></i>
                             <span className="side-menu__label">
                                 Manage Sales
@@ -52,7 +54,8 @@ return (
                         </Link>
                     </li>
                     <li className="slide">
-                        <Link to='/employee_information' className="side-menu__item">
+                        <Link to='/employees' className="side-menu__item">
+
                             <i className="w-6 h-4 side-menu__icon bi bi-people-fill"></i>
                             <span className="side-menu__label">
                                 Manage Employee
@@ -60,7 +63,8 @@ return (
                         </Link>
                     </li>
                     <li className="slide">
-                        <Link to='/report_information' className="side-menu__item">
+                        <Link to='/reports' className="side-menu__item">
+
                             <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
                             <span className="side-menu__label">
                                 Report Generation
