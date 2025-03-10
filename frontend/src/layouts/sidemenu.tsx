@@ -28,7 +28,7 @@ return (
                     <li className="slide__category"><span className="category-name">Main</span></li>
                     <li className="slide">
                         <Link to="/" className="side-menu__item">
-                            <i className="w-6 h-4 side-menu_icon bi bi-speedometer"></i>
+                            <i className="w-6 h-4 side-menu__icon bi bi-speedometer"></i>
                             <span className="side-menu__label">
                                 Dashboard &ensp;
                                 <span className="translate-middle badge !rounded-full bg-danger"> 5+ </span>
@@ -37,14 +37,14 @@ return (
                     </li>
                     <li className="slide">
                         <Link to='/customers' className="side-menu__item">
-                            <i className="w-6 h-4 side-menu__icon bi bi-wallet-fill"></i>
+                            <i className="w-6 h-4 side-menu__icon bi-info-lg"></i>
                             <span className="side-menu__label">
                                 Manage Commission
                             </span>
                         </Link>
                     </li>
                     <li className="slide">
-                        <Link to='/students information' className="side-menu__item">
+                        <Link to='/students_information' className="side-menu__item">
                             <i className="w-6 h-4 side-menu__icon bi bi-currency-dollar"></i>
                             <span className="side-menu__label">
                                 Manage Sales
@@ -52,13 +52,22 @@ return (
                         </Link>
                     </li>
                     <li className="slide">
-                        <Link to='/employee information' className="side-menu__item">
-                            <i className="w-6 h-4 side-menu__icon bi bi-suitcase-lg"></i>
+                        <Link to='/employee_information' className="side-menu__item">
+                            <i className="w-6 h-4 side-menu__icon bi bi-people-fill"></i>
                             <span className="side-menu__label">
                                 Manage Employee
                             </span>
                         </Link>
                     </li>
+                    <li className="slide">
+                        <Link to='/report_information' className="side-menu__item">
+                            <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
+                            <span className="side-menu__label">
+                                Report Generation
+                            </span>
+                        </Link>
+                    </li>
+                    
                 </ul>
             </nav>
         </div>

@@ -10,6 +10,7 @@ import Student_List from './pages/sales/StudentList';
 import Student_Registration from './pages/sales/StudentRegister';
 import Employee_List from './pages/EmployeeInformation/EmployeeList';
 import Employee_Registration from './pages/EmployeeInformation/EmployeeRegister';
+import Report_List from './pages/reportinformation/report';
 
 
 
@@ -20,10 +21,11 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<Dashboard />} />
         <Route path="/customers" element={<Customer_List />} />
         <Route path="/customer/create" element={<Customer_Registration />} />
-        <Route path="/students information" element={<Student_List/>} />
+        <Route path="/students_information" element={<Student_List/>} />
         <Route path="/student/create" element={<Student_Registration/>} />
-        <Route path="/employee information" element={<Employee_List/>} />
+        <Route path="/employee_information" element={<Employee_List/>} />
         <Route path="/employee/create" element={<Employee_Registration/>} />
+        <Route path="/report_information" element={<Report_List/>} />
     
       </Routes>
     </BrowserRouter>
