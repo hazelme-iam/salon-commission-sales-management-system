@@ -5,11 +5,10 @@ import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 
-
 import Profile from "../../assets/avatar.png";
 import { Link } from 'react-router-dom';
 
-const Employee_List: React.FC = () => {
+const Report_List: React.FC = () => {
     const gridRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -55,21 +54,7 @@ const Employee_List: React.FC = () => {
                 sort: true,
                 data: [
                     ...[
-                        ["001", "Yoon Jeonghan", "Banila Co.", "09143143143"],
-                        ["002", "Pranpriya Manobal", "Penshoppe", "09276394729"],
-                        ["003", "Jasperjane Mariano", "Aurora Publishing Co.", "09101639523"],
-                        ["004", "Jung Hoseok", "Louis Vuitton", "09374865913"],
-                        ["005", "Solene Villafuerte", "Cebu Pacific Air", "09123456789"],
-                        ["006", "Viceral", "ABS-CBN Network", "09875643981"],
-                        ["007", "Riven Sandoeval", "BDO bank", "09649261058"],
-                        ["008", "Ysabeau", "H&M", "09936021783"],
-                        ["009", "Dreixtein", "Uniqlo", "09365185724"],
-                        ["010", "Elijah Montefalco", "Starbucks", "096743871085"],
-                        ["011", "Cairo Marasigan", "8cuts JolliBurger", "09457632895"],
-                        ["012", "Josua Hong", " Polo Ralph Lauren", "09754978230"],
-                        ["013", "Miguel Ramirez", "San Miguel", "09563871934"],
-                        ["014", "Maximo Santos", "CEPALACO", "09750348726"],
-                        ["015", "Dionisio", "PLDT Inc.", "095643875406"],
+
                     ].map((row, index) => [(index + 1) + ".", ...row]),
                 ],
             }).render(gridRef.current);
@@ -111,4 +96,4 @@ const Employee_List: React.FC = () => {
     );
 };
 
-export default Employee_List;
+export default Report_List;
