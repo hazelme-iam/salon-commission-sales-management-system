@@ -7,23 +7,33 @@ interface SalesData {
 }
 
 const salesData: SalesData[] = [
-  { date: "Mar 1", sales: 1200 },
-  { date: "Mar 2", sales: 1500 },
-  { date: "Mar 3", sales: 1100 },
-  { date: "Mar 4", sales: 1800 },
-  { date: "Mar 5", sales: 1700 },
+  { date: "Jan", sales: 45000 },
+  { date: "Feb", sales: 47000 },
+  { date: "Mar", sales: 43000 },
+  { date: "Apr", sales: 49000 },
+  { date: "May", sales: 51000 },
+  { date: "Jun", sales: 52000 },
+  { date: "Jul", sales: 53000 },
+  { date: "Aug", sales: 54000 },
+  { date: "Sep", sales: 55000 },
+  { date: "Oct", sales: 56000 },
+  { date: "Nov", sales: 57000 },
+  { date: "Dec", sales: 58000 },
 ];
 
 const SalesGraph: React.FC = () => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold mb-3">Sales Summary</h2>
+      <h2 className="text-lg font-semibold mb-3">Monthly Sales Summary</h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={salesData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
+          <YAxis 
+            domain={[0, 'dataMax + 5000']} 
+            tickFormatter={(value) => `${value / 1000}K`} 
+          />
+          <Tooltip formatter={(value) => `$${value}`} />
           <Line type="monotone" dataKey="sales" stroke="#4CAF50" strokeWidth={2} />
         </LineChart>
       </ResponsiveContainer>

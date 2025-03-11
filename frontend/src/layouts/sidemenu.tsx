@@ -31,8 +31,7 @@ return (
                         <Link to="/" className="side-menu__item">
                             <i className="w-6 h-4 side-menu__icon bi bi-speedometer"></i>
                             <span className="side-menu__label">
-                                Dashboard &ensp;
-                                <span className="translate-middle badge !rounded-full bg-danger"> 5+ </span>
+                                Dashboard
                             </span>
                         </Link>
                     </li>
