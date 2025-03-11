@@ -4,7 +4,9 @@ import Sidemenu from "../layouts/sidemenu";
 import SalesGraph from "../components/SalesGraph";
 import CommissionOverview from "../components/CommissionOverview";
 import EmployeeStats from "../components/EmployeeStats";
-import SalesSummary from "../components/salesSummary";
+import DailySalesSummary from "../components/DailySalesSummary";
+import WeeklySales from "../components/WeeklySales";
+import MonthlySales from "../components/MonthlySales";
 function Dashboard() {
     return (
         <>  
@@ -20,15 +22,13 @@ function Dashboard() {
                         <div className="col-span-1 md:col-span-4">
                             <SalesGraph />
                         </div>
-           
+                     
                                     {/* Employee Stats */}
-                                    <SalesSummary />
-                                    
-                                    {/* Commission Overview */}
-                                    <CommissionOverview />
+                                    <DailySalesSummary />
+                                    <WeeklySales />
+                                    <MonthlySales />
+                    
 
-                                    {/* Employee Stats */}
-                                    <EmployeeStats />
                                     
 
                     </div>
