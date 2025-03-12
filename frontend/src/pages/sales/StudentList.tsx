@@ -54,21 +54,7 @@ const Student_List: React.FC = () => {
                 sort: true,
                 data: [
                     ...[
-                        ["20231748", "Pia Sarzuelo ", "Information Technology", "09816990040"],
-                        ["20231289", "Twella sabella", "Information Technology", "09123456789"],
-                        ["20231784", "Hazel Nandong", "Information Technology", "09058854913"],
-                        ["20230312", "Angelie Silvano", "Information Technology", "09123674309"],
-                        ["20230103", "Cherry Valenton", "BSED AP", "09675386701"],
-                        ["20230127", "Jeanelyn Mistas", "Midwifery", "090516427030"],
-                        ["20230121", "Andrew Sumalinog", "BSBA", "09127845879"],
-                        ["20230362", "Daphnie Padrigalan", "Information Technology", "09348695248"],
-                        ["20230987", "Jezreel Bahian", "Engineering", "09143574532"],
-                        ["20231346", "Edmar Yare", "Bped", "09785769342"],
-                        ["20234573", "Cris Ocate", "Midwifey", "09236587945"],
-                        ["20230457", "James Omamos", "BSBA", "09567834561"],
-                        ["2023213", "Cheryll Sevilla", "Criminology", "09658934565"],
-                        ["20233461", "Kim Magayon", "Information Technology", "09653759259"],
-                        ["20234521", "Roanne Olape", "BSBA", "09165784391"],
+                       
                     ].map((row, index) => [(index + 1) + ".", ...row]),
                 ],
             }).render(gridRef.current);
