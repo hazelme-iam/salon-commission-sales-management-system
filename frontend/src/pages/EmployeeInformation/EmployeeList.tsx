@@ -29,12 +29,20 @@ const Employee_List: React.FC = () => {
                                 </div>
                             `),
                     },
-                    { name: "Employee Name", width: "150px" },
-                    { name: "Company", width: "150px" },
-                    { name: "Contact No.", width: "100px" },
+                    { name: "First Name", width: "150px" },
+                    { name: "Last Name", width: "150px" },
+                    { name: "Birth Date", width: "150px" },
+                    { name: "Contact No.", width: "150px" },
+                    { name: "Email", width: "150px" },
+                    { name: "Address", width: "150px" },
+                    { name: "Role", width: "150px" },
+                    { name: "Commission Rate", width: "220px" },
+                    { name: "Total Commission Earned", width: "200px" },
+                    { name: "Shift Schedule", width: "200px" },
+                    { name: "Emergency Contact", width: "200px" },
                     {
                         name: "Actions",
-                        width: "80px",
+                        width: "90px",
                         formatter: () =>
                             html(`
                                  <div class="flex justify-center gap-2">

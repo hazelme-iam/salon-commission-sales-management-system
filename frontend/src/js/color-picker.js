@@ -1,8 +1,10 @@
 (function () {
     "use strict";
     
-    const pickrContainer = document.querySelector('.pickr-container');
-    const themeContainer = document.querySelector('.theme-container');
+    const pickrContainer = document.querySelector('.color-picker-container');
+
+    const themeContainer = document.querySelector('.color-theme-container');
+
     const pickrContainer1 = document.querySelector('.pickr-container1');
     const themeContainer1 = document.querySelector('.theme-container1');
     const pickrContainer2 = document.querySelector('.pickr-container2');

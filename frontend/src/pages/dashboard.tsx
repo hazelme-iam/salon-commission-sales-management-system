@@ -1,40 +1,41 @@
-import Breadcrumb from "../components/breadcrumbs"
-import Header from "../layouts/header"
-import Sidemenu from "../layouts/sidemenu"
-import logo from "../assets/images/faces/6.jpg"
-
+import Breadcrumb from "../components/breadcrumbs";
+import Header from "../layouts/header";
+import Sidemenu from "../layouts/sidemenu";
+import SalesGraph from "../components/SalesGraph";
+import CommissionOverview from "../components/CommissionOverview";
+import EmployeeStats from "../components/EmployeeStats";
+import DailySalesSummary from "../components/DailySalesSummary";
+import WeeklySales from "../components/WeeklySales";
+import MonthlySales from "../components/MonthlySales";
 function Dashboard() {
-
-return (
-<>
-    <Header />
-    <Sidemenu />
-    <div className="main-content app-content">
-        <div className="container-fluid">
+    return (
+        <>  
+            <Header />
+            <Sidemenu />
+            <div className="main-content app-content">
+                <div className="container-fluid">
             <Breadcrumb />
-                <div className="grid grid-cols-12 gap-x-6">
-                    <div className="xxl:col-span-3 col-span-12">
-                        <div className="box overflow-hidden main-content-card">
-                            <div className="box-body text-center p-5">
-                                <center>
-                                    <img src={logo} alt="" className="transparent-logo avatar-rounded" />
-                                    <p className="mt-2 mb-0"><span><i>Welcome back! Customer</i></span></p>
-                                </center>
-                            </div>
+                    
+                                            <div className="ml-64 p-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                    
+                         {/* Sales Summary */}
+                        <div className="col-span-1 md:col-span-4">
+                            <SalesGraph />
                         </div>
+                     
+                                    {/* Employee Stats */}
+                                    <DailySalesSummary />
+                                    <WeeklySales />
+                                    <MonthlySales />
+                    
+
+                                    
+
                     </div>
-                    <div className="xxl:col-span-9 col-span-12">
-                        <div className="box overflow-hidden main-content-card">
-                            <div className="box-body p-5">
-                                <p className="mt-2 mb-0"><span>Content here..</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </>
-)
+    </div>
+        </>
+    );
 }
 
-export default Dashboard
+export default Dashboard;
