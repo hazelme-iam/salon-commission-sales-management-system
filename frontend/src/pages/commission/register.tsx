@@ -7,9 +7,9 @@ import ProfileImage from "../../assets/avatar.png";
 interface FormData {
     firstName: string;
     lastName: string;
-    company: string;
-    email: string;
-    phone: string;
+    role: string;
+    sales: number;
+    commission: number;
     region: string;
     province: string;
     city: string;
@@ -72,7 +72,7 @@ function Customer_Registration() {
                     <Breadcrumb
                         title="Customer Registration"
                         links={[
-                            { text: "Customers", link: "/customers" },
+                            { text: "commission", link: "/customers" },
                         ]}
                         active="Register New Customer"
                     />
