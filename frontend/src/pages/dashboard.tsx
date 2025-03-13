@@ -3,8 +3,6 @@ import Header from "../layouts/header";
 import Sidemenu from "../layouts/sidemenu";
 import SalesGraph from "../components/SalesGraph";
 import RevenueGraph from "../components/RevenueGraph";
-import CommissionOverview from "../components/CommissionOverview";
-import EmployeeStats from "../components/EmployeeStats";
 import DailySalesSummary from "../components/Sales/DailySalesSummary";
 import WeeklySales from "../components/Sales/WeeklySales";
 import MonthlySales from "../components/Sales/MonthlySales";

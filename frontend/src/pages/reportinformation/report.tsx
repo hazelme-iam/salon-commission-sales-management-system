@@ -74,8 +74,8 @@ const Report_List: React.FC = () => {
                         ]}
                          active="Report" 
                         buttons={
-                            <Link to="/employee/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                                <i className="ri-add-line"></i> Print
+                            <Link to="/report/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
+                                <i className="bi bi-printer-fill"></i> Print
                             </Link>
                         }
                     />

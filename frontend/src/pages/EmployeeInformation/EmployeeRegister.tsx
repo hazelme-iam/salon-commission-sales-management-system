@@ -28,26 +28,13 @@ const initialFormData: FormData = {
 
 function Employee_Registration() {
     const [formData, setFormData] = useState<FormData>(initialFormData);
-    const [imagePreview, setImagePreview] = useState<string>(ProfileImage);
+   
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => setImagePreview(e.target?.result as string);
-            reader.readAsDataURL(file);
-            setFormData({ ...formData, photo: file });
-        }
-    };
-
-    const handleRemoveImage = () => {
-        setImagePreview(ProfileImage);
-        setFormData({ ...formData, photo: null });
-    };
+   
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
