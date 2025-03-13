@@ -5,12 +5,27 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import ProfileImage from "../../assets/avatar.png";
 
 interface FormData {
+<<<<<<< HEAD
     employeeName: string;
     customerName: string;
     service: string;
     sales: string;
     commission: string;
     date: string;
+=======
+    firstName: string;
+    lastName: string;
+    role: string;
+    sales: number;
+    commission: number;
+    region: string;
+    province: string;
+    city: string;
+    barangay: string;
+    postalCode: string;
+    biography: string;
+    photo?: File | null;
+>>>>>>> 38369e1be6a5ca3a0a334195745cb432fdacd0e4
 }
 
 const initialFormData: FormData = {
@@ -61,7 +76,7 @@ function Customer_Registration() {
                     <Breadcrumb
                         title="Customer Registration"
                         links={[
-                            { text: "Customers", link: "/customers" },
+                            { text: "commission", link: "/customers" },
                         ]}
                         active="Register New Customer"
                     />

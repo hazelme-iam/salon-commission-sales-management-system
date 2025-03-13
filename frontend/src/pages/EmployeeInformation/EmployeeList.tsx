@@ -1,16 +1,29 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Grid, html } from "gridjs";
 import "gridjs/dist/theme/mermaid.css";
 import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
-
-
 import Profile from "../../assets/avatar.png";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Employee_List: React.FC = () => {
     const gridRef = useRef<HTMLDivElement>(null);
+    const [employees, setEmployees] = useState([]);
+
+    useEffect(() => {
+        const fetchEmployees = async () => {
+            try {
+                const response = await fetch("http://localhost:8000/employees/");
+                const data = await response.json();
+                setEmployees(data);
+            } catch (error) {
+                console.error("Error fetching employees:", error);
+            }
+        };
+
+        fetchEmployees();
+    }, []);
 
     useEffect(() => {
         if (gridRef.current) {
@@ -23,21 +36,16 @@ const Employee_List: React.FC = () => {
                         formatter: (_, row) =>
                             html(`
                                 <div class="flex items-center gap-3">
-                                    <img src="${Profile}"
-                                        alt="Avatar" class="w-8 h-8 rounded-full" />
+                                    <img src="${Profile}" alt="Avatar" class="w-8 h-8 rounded-full" />
                                     <span>${row.cells[1].data}</span>
                                 </div>
                             `),
                     },
                     { name: "First Name", width: "150px" },
                     { name: "Last Name", width: "150px" },
-                    { name: "Birth Date", width: "150px" },
                     { name: "Contact No.", width: "150px" },
-                    { name: "Email", width: "150px" },
-                    { name: "Address", width: "150px" },
                     { name: "Role", width: "150px" },
                     { name: "Commission Rate", width: "220px" },
-                    { name: "Total Commission Earned", width: "200px" },
                     { name: "Shift Schedule", width: "200px" },
                     { name: "Emergency Contact", width: "200px" },
                     {
@@ -61,14 +69,20 @@ const Employee_List: React.FC = () => {
                 pagination: { limit: 10 },
                 search: true,
                 sort: true,
-                data: [
-                    ...[
-                        
-                    ].map((row, index) => [(index + 1) + ".", ...row]),
-                ],
+                data: employees.map((employee, index) => [
+                    (index + 1) + ".",
+                    employee.id,
+                    employee.firstName,
+                    employee.lastName,
+                    employee.phone,
+                    employee.role,
+                    employee.commission_rate,
+                    employee.shift_schedule,
+                    employee.emergency_contact,
+                ]),
             }).render(gridRef.current);
         }
-    }, []);
+    }, [employees]);
 
     return (
         <>
@@ -78,12 +92,13 @@ const Employee_List: React.FC = () => {
                 <div className="container-fluid">
                     <Breadcrumb
                         title="Manage Employee"
-                        links={[
-                            { text: "Dashboard", link: "/employee" },
-                        ]}
+                        links={[{ text: "Dashboard", link: "/" }]}
                         active="Employee"
                         buttons={
-                            <Link to="/employee/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
+                            <Link
+                                to="/employee/create"
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2"
+                            >
                                 <i className="ri-add-line"></i> Add New Employee
                             </Link>
                         }
@@ -98,7 +113,6 @@ const Employee_List: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                        
                 </div>
             </div>
         </>
