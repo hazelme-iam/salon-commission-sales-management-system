@@ -7,10 +7,10 @@ import Dashboard from './pages/dashboard';
 import Customer_Registration from './pages/commission/register';
 import Customer_List from './pages/commission/list';
 import Sales_List from './pages/sales/SalesList';
-import Student_Registration from './pages/sales/StudentRegister';
+import Student_Registration from './pages/sales/SalesRegister';
 import Employee_List from './pages/EmployeeInformation/EmployeeList';
 import Employee_Registration from './pages/EmployeeInformation/EmployeeRegister';
-import Report_List from './pages/reportinformation/report';
+import Report_List from './pages/reportinformation/ReportList';
 
 
 

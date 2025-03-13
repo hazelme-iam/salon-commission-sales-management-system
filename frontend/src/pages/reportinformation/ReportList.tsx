@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react"; //TIWASON UGMA 
 import { Grid, html } from "gridjs";
 import "gridjs/dist/theme/mermaid.css";
 import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
+
 
 import Profile from "../../assets/avatar.png";
 import { Link } from 'react-router-dom';
@@ -17,7 +18,7 @@ const Report_List: React.FC = () => {
                 columns: [
                     { name: "#", width: "10px" },
                     {
-                        name: "Employee ID",
+                        name: "Employee Name",
                         width: "200px",
                         formatter: (_, row) =>
                             html(`
@@ -28,9 +29,11 @@ const Report_List: React.FC = () => {
                                 </div>
                             `),
                     },
-                    { name: "Employee Name", width: "150px" },
-                    { name: "Company", width: "150px" },
-                    { name: "Contact No.", width: "100px" },
+                    { name: "Customer Name", width: "200px" },
+                    { name: "Service", width: "200px" },
+                    { name: "Sales", width: "200px" },
+                    { name: "Commission", width: "200px" },
+                    { name: "Date", width: "200px" },
                     {
                         name: "Actions",
                         width: "80px",
@@ -54,7 +57,7 @@ const Report_List: React.FC = () => {
                 sort: true,
                 data: [
                     ...[
-
+                        
                     ].map((row, index) => [(index + 1) + ".", ...row]),
                 ],
             }).render(gridRef.current);
@@ -68,13 +71,13 @@ const Report_List: React.FC = () => {
             <div className="main-content app-content">
                 <div className="container-fluid">
                     <Breadcrumb
-                        title="Manage Report"
+                        title="Report Generation"
                         links={[
                             { text: "Dashboard", link: "/" },
                         ]}
-                         active="Report" 
+                        active="Report Generation"
                         buttons={
-                            <Link to="/employee/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
+                            <Link to="/reports/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
                                 <i className="ri-add-line"></i> Print
                             </Link>
                         }

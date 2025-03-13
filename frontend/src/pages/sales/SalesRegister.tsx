@@ -105,12 +105,10 @@ function Student_Registration() {
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             {[
-                                                ["First Name", "firstName", "bi bi-person"],
-                                                ["Last Name", "lastName", "bi bi-person"],
-                                                ["Course", "course", "bi bi-course"],
-                                                ["Email", "email", "bi bi-envelope", "email"],
-                                                ["Phone", "phone", "bi bi-telephone", "tel"],
-                                                ["Postal Code", "postalCode", "bi bi-mailbox"],
+                                               ["Employee Name", "employeeName", "bi bi-person"],
+                                               ["Base Salary", "baseSalary", "bi bi-cash"],
+                                               ["Total Commission", "totalCommission", "bi bi-coin"],
+                                               ["Total Salary", "totalSalary", "bi bi-wallet"]
                                             ].map(([label, name, icon, type = "text"]) => (
                                                 <div key={name} className="relative">
                                                     <label className="block font-medium mb-1" htmlFor={name}>{label}</label>
@@ -125,34 +123,6 @@ function Student_Registration() {
                                                     </div>
                                                 </div>
                                             ))}
-
-                                            {[
-                                                ["Region", "region", ["Region 1", "Region 2", "Region 3"]],
-                                                ["Province", "province", ["Province A", "Province B", "Province C"]],
-                                                ["City", "city", ["City X", "City Y", "City Z"]],
-                                                ["Barangay", "barangay", ["Barangay 1", "Barangay 2", "Barangay 3"]],
-                                            ].map(([label, name, options]) => (
-                                                <div key={String(name)}>
-                                                    <label className="block font-medium mb-1">{label}</label>
-                                                    <select id={String(name)} name={String(name)}
-                                                        onChange={handleChange}
-                                                        className="t1-form-input rounded-sm focus:z-10">
-                                                        <option value="">Select {label}</option>
-                                                        {(options as string[]).map((option: string, index: number) => (
-                                                            <option key={index} value={option}>{option}</option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        <div className="mt-4">
-                                            <label className="block font-medium mb-1" htmlFor="biography">Biographical
-                                                Info</label>
-                                            <textarea id="biography" name="biography" rows={3}
-                                                onChange={handleChange}
-                                                className="w-full px-3 py-2 border rounded focus:outline-none"
-                                                placeholder="Write a short bio..." />
                                         </div>
 
                                         <div className="mt-4 flex justify-end gap-4">
