@@ -36,7 +36,6 @@ function Dashboard() {
                                     {/* Employee Stats */}
                                     
                                     <WeeklySales />
-                                    <MonthlySales />
                     </div>
         </div>
     </div>

@@ -2,7 +2,7 @@ import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 import { useState, ChangeEvent, FormEvent } from "react";
-import ProfileImage from "../../assets/avatar.png";
+
 
 interface FormData {
     firstName: string;

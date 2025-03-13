@@ -60,9 +60,16 @@ return (
 <li className="slide">
     <Link to='/reports' className="side-menu__item">
         <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
-        <span className="side-menu__label">Generate Reports</span>
+        <span className="side-menu__label">Salary Report</span>
     </Link>
 </li>
+<li className="slide">
+    <Link to='/monthlyReport' className="side-menu__item">
+        <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
+        <span className="side-menu__label">Monthly Report</span>
+    </Link>
+</li>
+         
                     
                 </ul>
             </nav>

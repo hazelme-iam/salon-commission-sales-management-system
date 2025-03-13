@@ -14,6 +14,7 @@ import Report_List from './pages/reportinformation/report';
 
 
 
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/employees" element={<Employee_List/>} />
         <Route path="/employee/create" element={<Employee_Registration/>} />
         <Route path="/reports" element={<Report_List/>} />
+
     
       </Routes>
     </BrowserRouter>
