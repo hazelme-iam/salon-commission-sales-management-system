@@ -68,16 +68,12 @@ const Student_List: React.FC = () => {
             <div className="main-content app-content">
                 <div className="container-fluid">
                     <Breadcrumb
-                        title="Commission Tracking"
+                        title="View Employee Commission and Salary"
                         links={[
                             { text: "Dashboard", link: "/" },
                         ]}
                         active="Commission Tracking"
-                        buttons={
-                            <Link to="/student/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                                <i className="ri-add-line"></i> Add New Student
-                            </Link>
-                        }
+                        
                     />
 
                     <div className="grid grid-cols-12 gap-x-6">

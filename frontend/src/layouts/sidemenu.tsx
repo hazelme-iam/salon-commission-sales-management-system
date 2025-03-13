@@ -24,54 +24,45 @@ return (
                             </center>
                         </a>
                     </li>
-                    <li>
-                        <hr className="mt-3" />
-                    </li>
-                    <li className="slide">
-                        <Link to="/" className="side-menu__item">
-                            <i className="w-6 h-4 side-menu__icon bi bi-speedometer"></i>
-                            <span className="side-menu__label">
-                                Dashboard
-                            </span>
-                        </Link>
-                    </li>
-                    <li className="slide">
-                        <Link to='/employees' className="side-menu__item">
+                    <li><hr className="mt-3" /></li>
 
-                            <i className="w-6 h-4 side-menu__icon bi bi-people-fill"></i>
-                            <span className="side-menu__label">
-                                Manage Employee
-                            </span>
-                        </Link>
-                        <Link to='/customers' className="side-menu__item">
-                            <i className="w-6 h-4 side-menu__icon bi-info-lg"></i>
-                            <span className="side-menu__label">
-  Commission
-                                and Sales
-                            
-                            </span>
-                        </Link>
-                    </li>
-                    <li className="slide">
-                        <Link to='/sales' className="side-menu__item">
+<li className="slide__category"><span className='category-name'>Overview</span></li>
+<li className="slide">
+    <Link to="/" className="side-menu__item">
+        <i className="w-6 h-4 side-menu__icon bi bi-speedometer"></i>
+        <span className="side-menu__label">Dashboard</span>
+    </Link>
+</li>
 
-                            <i className="w-6 h-4 side-menu__icon bi bi-currency-dollar"></i>
-                            <span className="side-menu__label">
-                                Commission Tracking
-                            </span>
-                        </Link>
-                    </li>
-                    <li className="slide">
-                    </li>
-                    <li className="slide">
-                        <Link to='/reports' className="side-menu__item">
+<li className="slide__category"><span className='category-name'>Employee Management</span></li>
+<li className="slide">
+    <Link to='/employees' className="side-menu__item">
+        <i className="w-6 h-4 side-menu__icon bi bi-people-fill"></i>
+        <span className="side-menu__label">Manage Employees</span>
+    </Link>
+</li>
 
-                            <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
-                            <span className="side-menu__label">
-                                Report Generation
-                            </span>
-                        </Link>
-                    </li>
+<li className="slide__category"><span className='category-name'>Commission & Sales</span></li>
+<li className="slide">
+    <Link to='/customers' className="side-menu__item">
+        <i className="w-6 h-4 side-menu__icon bi bi-info-lg"></i>
+        <span className="side-menu__label">Add Commissions</span>
+    </Link>
+</li>
+<li className="slide">
+    <Link to='/sales' className="side-menu__item">
+        <i className="w-6 h-4 side-menu__icon bi bi-currency-dollar"></i>
+        <span className="side-menu__label">View Salary</span>
+    </Link>
+</li>
+
+<li className="slide__category"><span className='category-name'>Reports & Export</span></li>
+<li className="slide">
+    <Link to='/reports' className="side-menu__item">
+        <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
+        <span className="side-menu__label">Generate Reports</span>
+    </Link>
+</li>
                     
                 </ul>
             </nav>
