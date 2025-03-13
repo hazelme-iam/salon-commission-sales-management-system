@@ -71,9 +71,9 @@ const Commission_List: React.FC = () => {
                     <Breadcrumb
                         title="Manage Commission"
                         links={[
-                            { text: "Dashboard", link: "/commission" },
+                            { text: "Dashboard", link: "/" },
                         ]}
-                        active="Commission"
+                        active="Manage Commission and Sales"
                         buttons={
                             <Link to="/customer/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
                                 <i className="ri-add-line"></i> Add New Customer

@@ -1,4 +1,4 @@
-import salon from '../assets/salon.png';
+import salon from '../assets/salon.jpg';
 import { Link } from 'react-router-dom';
 
 
@@ -36,10 +36,19 @@ return (
                         </Link>
                     </li>
                     <li className="slide">
+                        <Link to='/employees' className="side-menu__item">
+
+                            <i className="w-6 h-4 side-menu__icon bi bi-people-fill"></i>
+                            <span className="side-menu__label">
+                                Manage Employee
+                            </span>
+                        </Link>
                         <Link to='/customers' className="side-menu__item">
                             <i className="w-6 h-4 side-menu__icon bi-info-lg"></i>
                             <span className="side-menu__label">
-                                Manage Commission
+  Commission
+                                and Sales
+                            
                             </span>
                         </Link>
                     </li>
@@ -48,18 +57,11 @@ return (
 
                             <i className="w-6 h-4 side-menu__icon bi bi-currency-dollar"></i>
                             <span className="side-menu__label">
-                                Manage Sales
+                                Commission Tracking
                             </span>
                         </Link>
                     </li>
                     <li className="slide">
-                        <Link to='/employees' className="side-menu__item">
-
-                            <i className="w-6 h-4 side-menu__icon bi bi-people-fill"></i>
-                            <span className="side-menu__label">
-                                Manage Employee
-                            </span>
-                        </Link>
                     </li>
                     <li className="slide">
                         <Link to='/reports' className="side-menu__item">

@@ -7,13 +7,9 @@ import ProfileImage from "../../assets/avatar.png";
 interface FormData {
     firstName: string;
     lastName: string;
-    birthday: string;
     phone: string;
-    email: string;
-    address: string;
     role: string;
     commission_rate: string;
-    total_commission_rate: string;
     shift_schedule: string;
     emergency_contact: string;
     photo?: File | null;
@@ -22,18 +18,11 @@ interface FormData {
 const initialFormData: FormData = {
     firstName: "",
     lastName: "",
-    birthday: "",
     phone: "",
-    email: "",
-    address: "",
     role: "",
     commission_rate: "",
-    total_commission_rate: "",
     shift_schedule: "",
     emergency_contact: "",
-
-
-
     photo: null,
 };
 
@@ -60,9 +49,32 @@ function Employee_Registration() {
         setFormData({ ...formData, photo: null });
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Form submitted", formData);
+
+        const formDataToSend = new FormData();
+        Object.entries(formData).forEach(([key, value]) => {
+            if (value) {
+                formDataToSend.append(key, value as string);
+            }
+        });
+
+        try {
+            const response = await fetch("http://localhost:8000/employees/", {
+                method: "POST",
+                body: formDataToSend,
+            });
+
+            if (response.ok) {
+                alert("Employee Registered Successfully!");
+                setFormData(initialFormData); // Reset Form
+            } else {
+                alert("Failed to register employee.");
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            alert("An error occurred.");
+        }
     };
 
     return (
@@ -71,12 +83,9 @@ function Employee_Registration() {
             <Sidemenu />
             <div className="main-content app-content">
                 <div className="container-fluid">
-
                     <Breadcrumb
                         title="Employee Registration"
-                        links={[
-                            { text: "Employee", link: "/employee information" },
-                        ]}
+                        links={[{ text: "Employee", link: "/employee information" }]}
                         active="Register New Employee"
                     />
 
@@ -92,16 +101,11 @@ function Employee_Registration() {
                                             {[
                                                 ["First Name", "firstName", "bi bi-person"],
                                                 ["Last Name", "lastName", "bi bi-person"],
-                                                ["Birthday", "birthDate", "bi bi-calendar", "Date"],
                                                 ["Phone", "phone", "bi bi-telephone", "tel"],
-                                                ["Email", "email", "bi bi-envelope"],
-                                                ["Address", "address", "bi bi-house"],
                                                 ["Role", "role", "bi bi-person-badge"],
-                                                ["Commission Rate", "commissionRate", "bi bi-cash"],
-                                                ["Total Commission Earned", "totalCommissionEarned", "bi bi-wallet"],
-                                                ["Shift Schedule", "shiftSchedule", "bi bi-calendar-week"],
-                                                ["Emergency Contact", "emergencyContact", "bi bi-person-lines-fill"]
-                                                
+                                                ["Commission Rate", "commission_rate", "bi bi-cash"],
+                                                ["Shift Schedule", "shift_schedule", "bi bi-calendar-week"],
+                                                ["Emergency Contact", "emergency_contact", "bi bi-person-lines-fill"]
                                             ].map(([label, name, icon, type = "text"]) => (
                                                 <div key={name} className="relative">
                                                     <label className="block font-medium mb-1" htmlFor={name}>{label}</label>
@@ -117,8 +121,6 @@ function Employee_Registration() {
                                                 </div>
                                             ))}
                                         </div>
-
-                                        
 
                                         <div className="mt-4 flex justify-end gap-4">
                                             <button type="reset" className="bg-gray-300 px-4 py-2 rounded" onClick={() => setFormData(initialFormData)}>Reset</button>

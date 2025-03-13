@@ -68,14 +68,14 @@ const Report_List: React.FC = () => {
             <div className="main-content app-content">
                 <div className="container-fluid">
                     <Breadcrumb
-                        title="Manage Employee"
+                        title="Manage Report"
                         links={[
-                            { text: "Dashboard", link: "/employee" },
+                            { text: "Dashboard", link: "/" },
                         ]}
-                        active="Employee"
+                         active="Report" 
                         buttons={
                             <Link to="/employee/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                                <i className="ri-add-line"></i> Add New Employee
+                                <i className="ri-add-line"></i> Print
                             </Link>
                         }
                     />
