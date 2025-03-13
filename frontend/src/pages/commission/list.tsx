@@ -18,7 +18,7 @@ const Commission_List: React.FC = () => {
                 columns: [
                     { name: "#", width: "10px" },
                     {
-                        name: "Customer Name",
+                        name: "Employee Name",
                         width: "200px",
                         formatter: (_, row) =>
                             html(`
@@ -29,9 +29,11 @@ const Commission_List: React.FC = () => {
                                 </div>
                             `),
                     },
-                    { name: "Email", width: "200px" },
-                    { name: "Company", width: "150px" },
-                    { name: "Credit", width: "100px" },
+                    { name: "Customer Name", width: "200px" },
+                    { name: "Service", width: "200px" },
+                    { name: "Sales", width: "200px" },
+                    { name: "Commission", width: "200px" },
+                    { name: "Date", width: "200px" },
                     {
                         name: "Actions",
                         width: "80px",
@@ -76,7 +78,7 @@ const Commission_List: React.FC = () => {
                         active="Commission"
                         buttons={
                             <Link to="/customer/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                                <i className="ri-add-line"></i> Add New Customer
+                                <i className="ri-add-line"></i> Add New Commission
                             </Link>
                         }
                     />

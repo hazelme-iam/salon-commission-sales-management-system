@@ -17,7 +17,7 @@ const Student_List: React.FC = () => {
                 columns: [
                     { name: "#", width: "10px" },
                     {
-                        name: "Student ID",
+                        name: "Entry 1",
                         width: "200px",
                         formatter: (_, row) =>
                             html(`
@@ -28,12 +28,13 @@ const Student_List: React.FC = () => {
                                 </div>
                             `),
                     },
-                    { name: "Student Name", width: "150px" },
-                    { name: "Student Course", width: "150px" },
-                    { name: "Contact No.", width: "100px" },
+                    { name: "Employee Name", width: "180px" },
+                    { name: "Base Salary", width: "150px" },
+                    { name: "Total Commission", width: "150px" },
+                    { name: "Total Salary", width: "150px" },
                     {
                         name: "Actions",
-                        width: "70px",
+                        width: "150px",
                         formatter: () =>
                             html(`
                                  <div class="flex justify-center gap-2">
