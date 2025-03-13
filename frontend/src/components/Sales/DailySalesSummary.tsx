@@ -30,14 +30,14 @@ const SalesSummary: React.FC = () => {
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold mb-3">Daily Sales Summary</h2>
+      <h2 className="text-lg font-semibold mb-3">Today's Sales Summary</h2>
       
       {/* Total Sales */}
       <div className="p-4 bg-gray-100 rounded-lg shadow-sm flex items-center gap-3 mb-3">
         <FaDollarSign className="text-green-500 text-3xl" />
         <div>
           <p className="text-xl font-bold text-gray-900">${totalSales.toLocaleString()}</p>
-          <p className="text-gray-500 text-sm">Daily Total Sales</p>
+          <p className="text-gray-500 text-sm">Total Sales</p>
         </div>
       </div>
       
@@ -46,7 +46,7 @@ const SalesSummary: React.FC = () => {
         <FaChartLine className="text-blue-500 text-3xl" />
         <div>
           <p className="text-xl font-bold text-gray-900">${totalRevenue.toLocaleString()}</p>
-          <p className="text-gray-500 text-sm">Daily Total Revenue</p>
+          <p className="text-gray-500 text-sm">Total Revenue</p>
         </div>
       </div>
       
@@ -55,7 +55,7 @@ const SalesSummary: React.FC = () => {
         <FaUsers className="text-purple-500 text-3xl" />
         <div>
           <p className="text-xl font-bold text-gray-900">${totalCommission.toLocaleString()}</p>
-          <p className="text-gray-500 text-sm">Daily Total Commission</p>
+          <p className="text-gray-500 text-sm">Total Commission</p>
         </div>
       </div>
     </div>

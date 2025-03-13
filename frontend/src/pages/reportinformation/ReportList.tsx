@@ -77,8 +77,13 @@ const Report_List: React.FC = () => {
                         ]}
                         active="Report Generation"
                         buttons={
+<<<<<<< HEAD:frontend/src/pages/reportinformation/ReportList.tsx
                             <Link to="/reports/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
                                 <i className="ri-add-line"></i> Print
+=======
+                            <Link to="/report/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
+                                <i className="bi bi-printer-fill"></i> Print
+>>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68:frontend/src/pages/reportinformation/report.tsx
                             </Link>
                         }
                     />

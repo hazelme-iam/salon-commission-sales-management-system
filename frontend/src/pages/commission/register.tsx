@@ -2,17 +2,24 @@ import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 import { useState, ChangeEvent, FormEvent } from "react";
-import ProfileImage from "../../assets/avatar.png";
+
 
 interface FormData {
+<<<<<<< HEAD
  
+=======
+>>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68
     employeeName: string;
     customerName: string;
     service: string;
-    sales: string;
     commission: string;
+    sales: string;
     date: string;
+<<<<<<< HEAD
 }
+=======
+};
+>>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68
 
 const initialFormData: FormData = {
     employeeName: "",
@@ -79,8 +86,8 @@ function Customer_Registration() {
                                                 ["Employee Name", "employeeName", "bi bi-person"],
                                                 ["Customer Name", "customerName", "bi bi-person"],
                                                 ["Service", "service", "bi bi-building"],
-                                                ["Sales", "sales", "bi bi-envelope", "email"],
-                                                ["Commission", "commission", "bi bi-telephone", "tel"],
+                                                ["Sales", "sales", "bi bi-coin", "email"],
+                                                ["Commission", "commission", "bi bi-cash"],
                                                 ["Date", "date", "bi bi-calendar", "date"],
                                             ].map(([label, name, icon, type = "text"]) => (
                                                 <div key={name} className="relative">

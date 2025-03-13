@@ -6,7 +6,7 @@ import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 
 import Profile from "../../assets/avatar.png";
-import { Link } from 'react-router-dom';
+
 
 const Student_List: React.FC = () => {
     const gridRef = useRef<HTMLDivElement>(null);
@@ -68,16 +68,25 @@ const Student_List: React.FC = () => {
             <div className="main-content app-content">
                 <div className="container-fluid">
                     <Breadcrumb
+<<<<<<< HEAD
                         title="Manage Students"
+=======
+                        title="View Employee Commission and Salary"
+>>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68
                         links={[
                             { text: "Dashboard", link: "/students" },
                         ]}
+<<<<<<< HEAD
                         active="Students"
                         buttons={
                             <Link to="/student/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
                                 <i className="ri-add-line"></i> Add New Student
                             </Link>
                         }
+=======
+                        active="Commission Tracking"
+                        
+>>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68
                     />
 
                     <div className="grid grid-cols-12 gap-x-6">
