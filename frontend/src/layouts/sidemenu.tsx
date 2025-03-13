@@ -60,13 +60,25 @@ return (
 <li className="slide">
     <Link to='/reports' className="side-menu__item">
         <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
-        <span className="side-menu__label">Salary Report</span>
+        <span className="side-menu_label">Employee Commisssion & Sales</span>
     </Link>
 </li>
 <li className="slide">
     <Link to='/monthlyreports' className="side-menu__item">
         <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
-        <span className="side-menu__label">Monthly Report</span>
+        <span className="side-menu_label">Month Revenue & Sales</span>
+    </Link>
+</li>
+<li className="slide">
+    <Link to='/weekreports' className="side-menu__item">
+        <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
+        <span className="side-menu_label">Week Revenue & Sales</span>
+    </Link>
+</li>
+<li className="slide">
+    <Link to='/todayreports' className="side-menu__item">
+        <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
+        <span className="side-menu_label">Today's Revenue & Sales</span>
     </Link>
 </li>
          

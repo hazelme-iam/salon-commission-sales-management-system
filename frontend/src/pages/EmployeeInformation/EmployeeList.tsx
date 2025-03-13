@@ -93,12 +93,12 @@ const Employee_List: React.FC = () => {
                     <Breadcrumb
                         title="Manage Employee"
                         links={[{ text: "Dashboard", link: "/" }]}
-                        active="Employee"
+                        active="Employees"
                         buttons={
                             <Link
                                 to="/employee/create"
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2"
-                            >
+                            >   
                                 <i className="ri-add-line"></i> Add New Employee
                             </Link>
                         }

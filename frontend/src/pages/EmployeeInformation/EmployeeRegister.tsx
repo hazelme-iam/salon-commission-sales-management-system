@@ -72,7 +72,7 @@ function Employee_Registration() {
                 <div className="container-fluid">
                     <Breadcrumb
                         title="Employee Registration"
-                        links={[{ text: "Employee", link: "/employee information" }]}
+                        links={[{ text: "Employee", link: "/employees" }]}
                         active="Register New Employee"
                     />
 

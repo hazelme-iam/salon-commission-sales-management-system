@@ -9,8 +9,9 @@ import Customer_List from './pages/commission/list';
 import Sales_List from './pages/sales/SalesList';
 import Employee_List from './pages/EmployeeInformation/EmployeeList';
 import Employee_Registration from './pages/EmployeeInformation/EmployeeRegister';
-import Report_List from './pages/reportinformation/report';
+import Report_List from './pages/reportinformation/employeeSalary';
 import MonthlyReportList from './pages/reportinformation/monthly';
+import TodayReportList from './pages/reportinformation/today';
 
 
 
@@ -25,8 +26,9 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/sales" element={<Sales_List/>} /> 
         <Route path="/employees" element={<Employee_List/>} />
         <Route path="/employee/create" element={<Employee_Registration/>} />
-        <Route path="/reports" element={<Report_List/>} />
+        <Route path="/reports" element={<Report_List />} />
         <Route path="/monthlyreports" element={<MonthlyReportList/>} />
+        <Route path="/todayreports" element={<TodayReportList/>} />
 
     
       </Routes>
