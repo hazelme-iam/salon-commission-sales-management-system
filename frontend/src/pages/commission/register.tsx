@@ -2,24 +2,17 @@ import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 import { useState, ChangeEvent, FormEvent } from "react";
-
+import ProfileImage from "../../assets/avatar.png";
 
 interface FormData {
-<<<<<<< HEAD
  
-=======
->>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68
     employeeName: string;
     customerName: string;
     service: string;
-    commission: string;
     sales: string;
+    commission: string;
     date: string;
-<<<<<<< HEAD
 }
-=======
-};
->>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68
 
 const initialFormData: FormData = {
     employeeName: "",
@@ -67,11 +60,11 @@ function Customer_Registration() {
             <div className="main-content app-content">
                 <div className="container-fluid">
                     <Breadcrumb
-                        title="Customer Registration"
+                        title="Add Commission"
                         links={[
                             { text: "commission", link: "/customers" },
                         ]}
-                        active="Register New Customer"
+                        active="Add New Commission"
                     />
 
                     <div className="grid grid-cols-12 gap-x-6">
@@ -86,8 +79,8 @@ function Customer_Registration() {
                                                 ["Employee Name", "employeeName", "bi bi-person"],
                                                 ["Customer Name", "customerName", "bi bi-person"],
                                                 ["Service", "service", "bi bi-building"],
-                                                ["Sales", "sales", "bi bi-coin", "email"],
-                                                ["Commission", "commission", "bi bi-cash"],
+                                                ["Sales", "sales", "bi bi-envelope", "email"],
+                                                ["Commission", "commission", "bi bi-telephone", "tel"],
                                                 ["Date", "date", "bi bi-calendar", "date"],
                                             ].map(([label, name, icon, type = "text"]) => (
                                                 <div key={name} className="relative">

@@ -7,18 +7,18 @@ import Dashboard from './pages/dashboard';
 import Customer_Registration from './pages/commission/register';
 import Customer_List from './pages/commission/list';
 import Sales_List from './pages/sales/SalesList';
-<<<<<<< HEAD
+
 import Student_Registration from './pages/sales/SalesRegister';
 import Employee_List from './pages/EmployeeInformation/EmployeeList';
 import Employee_Registration from './pages/EmployeeInformation/EmployeeRegister';
 import Report_List from './pages/reportinformation/ReportList';
-=======
+
 import Employee_List from './pages/EmployeeInformation/EmployeeList';
 import Employee_Registration from './pages/EmployeeInformation/EmployeeRegister';
 import Report_List from './pages/reportinformation/report';
 import MonthlyReportList from './pages/reportinformation/monthly';
 
->>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68
+
 
 
 

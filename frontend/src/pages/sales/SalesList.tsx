@@ -6,7 +6,7 @@ import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 
 import Profile from "../../assets/avatar.png";
-
+import { Link } from 'react-router-dom';
 
 const Student_List: React.FC = () => {
     const gridRef = useRef<HTMLDivElement>(null);
@@ -55,6 +55,12 @@ const Student_List: React.FC = () => {
                 sort: true,
                 data: [
                     ...[
+                        ["001", "Ann Edubas", "2000", "300", "2300"],
+                        ["002", "John Smith", "1800", "250", "2050"],
+                        ["003", "Lisa Brown", "2200", "400", "2600"],
+                        ["004", "David Garcia", "1900", "350", "2250"],
+                        ["005", "Sophia Martinez", "2100", "$500", "2600"],
+                        ["006", "Michael Lee", "1750", "200", "1950"],
                        
                     ].map((row, index) => [(index + 1) + ".", ...row]),
                 ],
@@ -68,25 +74,16 @@ const Student_List: React.FC = () => {
             <div className="main-content app-content">
                 <div className="container-fluid">
                     <Breadcrumb
-<<<<<<< HEAD
-                        title="Manage Students"
-=======
-                        title="View Employee Commission and Salary"
->>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68
+                        title="View Salary"
                         links={[
                             { text: "Dashboard", link: "/students" },
                         ]}
-<<<<<<< HEAD
-                        active="Students"
+                        active="Salary"
                         buttons={
                             <Link to="/student/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                                <i className="ri-add-line"></i> Add New Student
+                                <i className="ri-add-line"></i> Add Salary
                             </Link>
                         }
-=======
-                        active="Commission Tracking"
-                        
->>>>>>> 5af4f45c9a323a9e80a57d7d7028d2fbd055dc68
                     />
 
                     <div className="grid grid-cols-12 gap-x-6">
