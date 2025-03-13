@@ -5,7 +5,6 @@ import SalesGraph from "../components/SalesGraph";
 import RevenueGraph from "../components/RevenueGraph";
 import DailySalesSummary from "../components/Sales/DailySalesSummary";
 import WeeklySales from "../components/Sales/WeeklySales";
-import MonthlySales from "../components/Sales/MonthlySales";
 function Dashboard() {
     return (
         <>  

@@ -7,10 +7,10 @@ import Dashboard from './pages/dashboard';
 import Customer_Registration from './pages/commission/register';
 import Customer_List from './pages/commission/list';
 import Sales_List from './pages/sales/SalesList';
-import Student_Registration from './pages/sales/StudentRegister';
 import Employee_List from './pages/EmployeeInformation/EmployeeList';
 import Employee_Registration from './pages/EmployeeInformation/EmployeeRegister';
 import Report_List from './pages/reportinformation/report';
+import MonthlyReportList from './pages/reportinformation/monthly';
 
 
 
@@ -22,11 +22,11 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<Dashboard />} />
         <Route path="/customers" element={<Customer_List />} />
         <Route path="/customer/create" element={<Customer_Registration />} />
-        <Route path="/sales" element={<Sales_List/>} />
-        <Route path="/student/create" element={<Student_Registration/>} />
+        <Route path="/sales" element={<Sales_List/>} /> 
         <Route path="/employees" element={<Employee_List/>} />
         <Route path="/employee/create" element={<Employee_Registration/>} />
         <Route path="/reports" element={<Report_List/>} />
+        <Route path="/monthlyreports" element={<MonthlyReportList/>} />
 
     
       </Routes>

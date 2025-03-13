@@ -1,161 +1,147 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
-import { Grid, html } from "gridjs";
-import { DatePicker } from "@mui/x-date-pickers";
-import { Button, TextField } from "@mui/material";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
-import * as XLSX from "xlsx";
-import dayjs from "dayjs";
-import "gridjs/dist/theme/mermaid.css";
+import React, { useRef } from "react";
+import { Button } from "@mui/material";
 import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
-import Profile from "../../assets/avatar.png";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-interface EmployeeData {
-  id: number;
-  name: string;
-  company: string;
-  contact: string;
-  date: string;
-}
-
-const sampleData: EmployeeData[] = [
-  { id: 1, name: "John Doe", company: "Salon A", contact: "123-456", date: "2024-03-01" },
-  { id: 2, name: "Jane Smith", company: "Salon B", contact: "789-012", date: "2024-03-05" },
-  { id: 3, name: "Alice Brown", company: "Salon C", contact: "345-678", date: "2024-03-10" },
+const sampleData = [
+    { id: 1, name: "John Doe", company: "Salon A", contact: "123-456", date: "2024-03-01" },
+    { id: 2, name: "Jane Smith", company: "Salon B", contact: "789-012", date: "2024-03-05" },
+    { id: 3, name: "Alice Brown", company: "Salon C", contact: "345-678", date: "2024-03-10" },
 ];
 
 const MonthlyReportList: React.FC = () => {
-  const gridRef = useRef<HTMLDivElement>(null);
-  const [startDate, setStartDate] = useState<string | null>(null);
-  const [endDate, setEndDate] = useState<string | null>(null);
+    const tableRef = useRef<HTMLDivElement>(null);
+  
+    // **Print Report**
+    const printReport = () => {
+        const printWindow = window.open("", "_blank");
+        if (printWindow) {
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Monthly Report</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 20px; }
+                            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                            th { background-color: #f4f4f4; }
+                        </style>
+                    </head>
+                    <body>
+                        <h2>Monthly Report</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Company</th>
+                                    <th>Contact</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${sampleData.map(row => `
+                                    <tr>
+                                        <td>${row.id}</td>
+                                        <td>${row.name}</td>
+                                        <td>${row.company}</td>
+                                        <td>${row.contact}</td>
+                                        <td>${row.date}</td>
+                                    </tr>
+                                `).join("")}
+                            </tbody>
+                        </table>
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+    };
 
-  // ✅ Filtered Data using useMemo (improves performance)
-  const filteredData = useMemo(() => {
-    return sampleData.filter((item) => {
-      if (!startDate || !endDate) return true;
-      const itemDate = dayjs(item.date);
-      return itemDate.isAfter(dayjs(startDate).subtract(1, "day")) &&
-             itemDate.isBefore(dayjs(endDate).add(1, "day"));
-    });
-  }, [startDate, endDate]);
+    // **Export CSV**
+    const exportCSV = () => {
+        const csvContent = [
+            ["ID", "Name", "Company", "Contact", "Date"],
+            ...sampleData.map(row => [row.id, row.name, row.company, row.contact, row.date])
+        ].map(e => e.join(",")).join("\n");
 
-  // ✅ Function to initialize the Grid table
-  const initializeTable = () => {
-    if (gridRef.current) {
-      new Grid({
-        columns: [
-          { name: "#", width: "50px" },
-          {
-            name: "Employee ID",
-            width: "200px",
-            formatter: (_, row) =>
-              html(`
-                <div class="flex items-center gap-3">
-                  <img src="${Profile}" alt="Avatar" class="w-8 h-8 rounded-full" />
-                  <span>${row.cells[1].data}</span>
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "monthly_report.csv";
+        link.click();
+    };
+
+    // **Export TXT**
+    const exportTXT = () => {
+        const content = sampleData.map(row =>
+            `ID: ${row.id}, Name: ${row.name}, Company: ${row.company}, Contact: ${row.contact}, Date: ${row.date}`
+        ).join("\n");
+
+        const blob = new Blob([content], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "monthly_report.txt";
+        link.click();
+    };
+
+    return (
+        <>
+            <Header />
+            <Sidemenu />
+            <div className="main-content app-content">
+                <Breadcrumb
+                        title="Manage Report"
+                        links={[
+                            { text: "Dashboard", link: "/" },
+                        ]}
+                         active="Report" 
+                    />
+
+                    {/* Export Buttons */}
+                    <div className="flex gap-4 mb-4">
+                        <Button variant="contained" color="primary" onClick={printReport}>Print Report</Button>
+                        <Button variant="contained" color="secondary" onClick={exportCSV}>Export CSV</Button>
+                        <Button variant="outlined" color="default" onClick={exportTXT}>Export TXT</Button>
+                    </div>
+
+                    {/* Report Table */}
+                    <div className="box overflow-hidden main-content-card">
+                        <div className="box-body p-5">
+                            <div ref={tableRef}>
+                                <table className="w-full border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr className="bg-gray-200">
+                                            <th className="border border-gray-300 px-4 py-2">ID</th>
+                                            <th className="border border-gray-300 px-4 py-2">Name</th>
+                                            <th className="border border-gray-300 px-4 py-2">Company</th>
+                                            <th className="border border-gray-300 px-4 py-2">Contact</th>
+                                            <th className="border border-gray-300 px-4 py-2">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {sampleData.map((row, index) => (
+                                            <tr key={index} className="text-center">
+                                                <td className="border border-gray-300 px-4 py-2">{row.id}</td>
+                                                <td className="border border-gray-300 px-4 py-2">{row.name}</td>
+                                                <td className="border border-gray-300 px-4 py-2">{row.company}</td>
+                                                <td className="border border-gray-300 px-4 py-2">{row.contact}</td>
+                                                <td className="border border-gray-300 px-4 py-2">{row.date}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-              `),
-          },
-          { name: "Employee Name", width: "150px" },
-          { name: "Company", width: "150px" },
-          { name: "Contact No.", width: "100px" },
-          { name: "Date", width: "120px" },
-        ],
-        pagination: { limit: 5 },
-        search: true,
-        sort: true,
-        data: filteredData.map((row, index) => [(index + 1) + ".", row.id, row.name, row.company, row.contact, row.date]),
-      }).render(gridRef.current);
-    }
-  };
-
-  // ✅ Run once on mount, and again when `filteredData` updates
-  useEffect(() => {
-    initializeTable();
-  }, [filteredData]);
-
-  // ✅ Export to PDF
-  const exportPDF = () => {
-    const doc = new jsPDF();
-    doc.text("Monthly Report", 14, 10);
-    (doc as any).autoTable({
-      head: [["ID", "Name", "Company", "Contact", "Date"]],
-      body: filteredData.map((row) => [row.id, row.name, row.company, row.contact, row.date]),
-    });
-    doc.save("monthly_report.pdf");
-  };
-
-  // ✅ Export to Excel
-  const exportExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(filteredData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Report");
-    XLSX.writeFile(workbook, "monthly_report.xlsx");
-  };
-
-  // ✅ Print Report
-  const printReport = () => {
-    window.print();
-  };
-
-  return (
-    <>
-      <Header />
-      <Sidemenu />
-      <div className="main-content app-content">
-        <div className="container-fluid">
-          <Breadcrumb
-            title="Manage Report"
-            links={[{ text: "Dashboard", link: "/" }]}
-            active="Report"
-            buttons={
-              <Link to="/report/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                <i className="bi bi-printer-fill"></i> Print
-              </Link>
-            }
-          />
-
-          {/* Date Pickers */}
-          <div className="flex gap-4 mb-4">
-            <DatePicker
-              label="Start Date"
-              value={startDate}
-              onChange={(newValue) => setStartDate(newValue)}
-              renderInput={(params) => <TextField {...params} fullWidth />}
-            />
-            <DatePicker
-              label="End Date"
-              value={endDate}
-              onChange={(newValue) => setEndDate(newValue)}
-              renderInput={(params) => <TextField {...params} fullWidth />}
-            />
-          </div>
-
-          {/* Export Buttons */}
-          <div className="flex gap-4 mb-4">
-            <Button variant="contained" color="primary" onClick={exportPDF}>Export PDF</Button>
-            <Button variant="contained" color="secondary" onClick={exportExcel}>Export Excel</Button>
-            <Button variant="outlined" color="inherit" onClick={printReport}>Print</Button>
-          </div>
-
-          {/* Grid Table */}
-          <div className="grid grid-cols-12 gap-x-6">
-            <div className="xxl:col-span-12 col-span-12">
-              <div className="box overflow-hidden main-content-card">
-                <div className="box-body p-5">
-                  <div ref={gridRef}></div> {/* Grid.js Table Here */}
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </>
-  );
+            
+        </>
+    );
 };
 
 export default MonthlyReportList;

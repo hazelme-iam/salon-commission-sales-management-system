@@ -64,7 +64,7 @@ return (
     </Link>
 </li>
 <li className="slide">
-    <Link to='/monthlyReport' className="side-menu__item">
+    <Link to='/monthlyreports' className="side-menu__item">
         <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
         <span className="side-menu__label">Monthly Report</span>
     </Link>
