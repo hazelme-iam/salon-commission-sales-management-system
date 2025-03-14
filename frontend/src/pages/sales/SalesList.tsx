@@ -72,7 +72,7 @@ const Student_List: React.FC = () => {
                         links={[
                             { text: "Dashboard", link: "/" },
                         ]}
-                        active="Commission Tracking"
+                        active="View Salary"
                         
                     />
 
