@@ -8,17 +8,10 @@ import Customer_Registration from './pages/commission/register';
 import Customer_List from './pages/commission/list';
 import Sales_List from './pages/sales/SalesList';
 
-import Student_Registration from './pages/sales/SalesRegister';
+import Sales_Registration from './pages/sales/SalesRegister';
 import Employee_List from './pages/EmployeeInformation/EmployeeList';
 import Employee_Registration from './pages/EmployeeInformation/EmployeeRegister';
-<<<<<<< HEAD
-import ReportList from './pages/reportinformation/ReportList';
-import EmployeeList from './pages/EmployeeInformation/EmployeeList';
-import Employee_Register from './pages/EmployeeInformation/EmployeeRegister';
-import Report_List from './pages/reportinformation/ReportList';
-=======
 import Report_List from './pages/reportinformation/employeeSalary';
->>>>>>> 6fd588cc4624b28fd07a9eac56d0196e5e5198a5
 import MonthlyReportList from './pages/reportinformation/monthly';
 import TodayReportList from './pages/reportinformation/today';
 

@@ -81,7 +81,7 @@ function Employee_Registration() {
                             <div className="box overflow-hidden main-content-card">
                                 <div className="box-body p-5">
                                     <form onSubmit={handleSubmit}>
-                                        <h3>Add Employee</h3>
+                                       
                                         <hr className="mt-3 mb-6" />
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

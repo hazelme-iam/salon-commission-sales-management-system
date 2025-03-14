@@ -23,7 +23,7 @@ const initialFormData: FormData = {
     date: "",
 };
 
-function Customer_Registration() {
+function Commission_Registration() {
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const [errors, setErrors] = useState<Partial<FormData>>({});
 
@@ -62,7 +62,7 @@ function Customer_Registration() {
                     <Breadcrumb
                         title="Add Commission"
                         links={[
-                            { text: "commission", link: "/customers" },
+                            { text: "commission", link: "/commission" },
                         ]}
                         active="Add New Commission"
                     />
@@ -117,4 +117,4 @@ function Customer_Registration() {
     );
 }
 
-export default Customer_Registration;
+export default Commission_Registration;

@@ -59,7 +59,7 @@ const Student_List: React.FC = () => {
                         ["002", "John Smith", "1800", "250", "2050"],
                         ["003", "Lisa Brown", "2200", "400", "2600"],
                         ["004", "David Garcia", "1900", "350", "2250"],
-                        ["005", "Sophia Martinez", "2100", "$500", "2600"],
+                        ["005", "Sophia Martinez", "2100", "500", "2600"],
                         ["006", "Michael Lee", "1750", "200", "1950"],
                        
                     ].map((row, index) => [(index + 1) + ".", ...row]),
