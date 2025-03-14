@@ -79,7 +79,7 @@ const Commission_List: React.FC = () => {
                         active="Manage Commission"
                         buttons={
                             <Link to="/customer/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                                <i className="ri-add-line"></i> Add New Commission
+                                <i className="ri-add-line"></i> Add New
                             </Link>
                         }
                     />

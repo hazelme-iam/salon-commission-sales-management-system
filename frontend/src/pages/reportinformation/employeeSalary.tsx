@@ -10,7 +10,7 @@ const sampleData = [
     { id: 3, name: "Alice Brown", company: "Salon C", contact: "345-678", date: "2024-03-10" },
 ];
 
-const MonthlyReportList: React.FC = () => {
+const Report_List: React.FC = () => {
     const tableRef = useRef<HTMLDivElement>(null);
   
     // **Print Report**
@@ -93,11 +93,11 @@ const MonthlyReportList: React.FC = () => {
             <Sidemenu />
             <div className="main-content app-content">
                 <Breadcrumb
-                        title="Monthly Report"
+                        title="Employee Commission & Salary Report"
                         links={[
                             { text: "Dashboard", link: "/" },
                         ]}
-                         active="Monthly Report" 
+                         active="Salary Report" 
                     />
 
                     {/* Export Buttons */}
@@ -143,4 +143,4 @@ const MonthlyReportList: React.FC = () => {
     );
 };
 
-export default MonthlyReportList;
+export default Report_List;

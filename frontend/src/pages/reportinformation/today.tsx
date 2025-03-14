@@ -5,12 +5,11 @@ import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 
 const sampleData = [
-    { id: 1, name: "John Doe", company: "Salon A", contact: "123-456", date: "2024-03-01" },
-    { id: 2, name: "Jane Smith", company: "Salon B", contact: "789-012", date: "2024-03-05" },
-    { id: 3, name: "Alice Brown", company: "Salon C", contact: "345-678", date: "2024-03-10" },
+    { id: 1, date: "2024-03-01", total_sales: "764432", commission: "45354", total_revenue: "10000", transactions: "40" },
+    
 ];
 
-const MonthlyReportList: React.FC = () => {
+const TodayReportList: React.FC = () => {
     const tableRef = useRef<HTMLDivElement>(null);
   
     // **Print Report**
@@ -44,9 +43,10 @@ const MonthlyReportList: React.FC = () => {
                                 ${sampleData.map(row => `
                                     <tr>
                                         <td>${row.id}</td>
-                                        <td>${row.name}</td>
-                                        <td>${row.company}</td>
-                                        <td>${row.contact}</td>
+                                        <td>${row.total_sales}</td>
+                                        <td>${row.commission}</td>
+                                        <td>${row.total_revenue}</td>
+                                        <td>${row.transactions}</td>
                                         <td>${row.date}</td>
                                     </tr>
                                 `).join("")}
@@ -64,7 +64,7 @@ const MonthlyReportList: React.FC = () => {
     const exportCSV = () => {
         const csvContent = [
             ["ID", "Name", "Company", "Contact", "Date"],
-            ...sampleData.map(row => [row.id, row.name, row.company, row.contact, row.date])
+            ...sampleData.map(row => [row.id, row.total_sales, row.commission, row.total_revenue, row.transactions, row.date])
         ].map(e => e.join(",")).join("\n");
 
         const blob = new Blob([csvContent], { type: "text/csv" });
@@ -77,7 +77,7 @@ const MonthlyReportList: React.FC = () => {
     // **Export TXT**
     const exportTXT = () => {
         const content = sampleData.map(row =>
-            `ID: ${row.id}, Name: ${row.name}, Company: ${row.company}, Contact: ${row.contact}, Date: ${row.date}`
+            `ID: ${row.id}, Name: ${row.total_sales}, Company: ${row.commission}, Contact: ${row.total_revenue}, Number of Transactions: ${row.transactions}, Date: ${row.date}\n`
         ).join("\n");
 
         const blob = new Blob([content], { type: "text/plain" });
@@ -115,9 +115,10 @@ const MonthlyReportList: React.FC = () => {
                                     <thead>
                                         <tr className="bg-gray-200">
                                             <th className="border border-gray-300 px-4 py-2">ID</th>
-                                            <th className="border border-gray-300 px-4 py-2">Name</th>
-                                            <th className="border border-gray-300 px-4 py-2">Company</th>
-                                            <th className="border border-gray-300 px-4 py-2">Contact</th>
+                                            <th className="border border-gray-300 px-4 py-2">Total Sales</th>
+                                            <th className="border border-gray-300 px-4 py-2">TotalCommission</th>
+                                            <th className="border border-gray-300 px-4 py-2">Total Revenue</th>
+                                            <th className="border border-gray-300 px-4 py-2">Number of Transactions</th>
                                             <th className="border border-gray-300 px-4 py-2">Date</th>
                                         </tr>
                                     </thead>
@@ -125,9 +126,10 @@ const MonthlyReportList: React.FC = () => {
                                         {sampleData.map((row, index) => (
                                             <tr key={index} className="text-center">
                                                 <td className="border border-gray-300 px-4 py-2">{row.id}</td>
-                                                <td className="border border-gray-300 px-4 py-2">{row.name}</td>
-                                                <td className="border border-gray-300 px-4 py-2">{row.company}</td>
-                                                <td className="border border-gray-300 px-4 py-2">{row.contact}</td>
+                                                <td className="border border-gray-300 px-4 py-2">{row.total_sales}</td>
+                                                <td className="border border-gray-300 px-4 py-2">{row.commission}</td>
+                                                <td className="border border-gray-300 px-4 py-2">{row.total_revenue}</td>
+                                                <td className="border border-gray-300 px-4 py-2">{row.transactions}</td>
                                                 <td className="border border-gray-300 px-4 py-2">{row.date}</td>
                                             </tr>
                                         ))}
@@ -143,4 +145,4 @@ const MonthlyReportList: React.FC = () => {
     );
 };
 
-export default MonthlyReportList;
+export default TodayReportList;
