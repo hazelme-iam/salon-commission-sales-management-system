@@ -36,7 +36,7 @@ const Commission_List: React.FC = () => {
                     { name: "Date", width: "200px" },
                     {
                         name: "Actions",
-                        width: "80px",
+                        width: "150px",
                         formatter: () =>
                             html(`
                                  <div class="flex justify-center gap-2">
@@ -57,6 +57,7 @@ const Commission_List: React.FC = () => {
                 sort: true,
                 data: [
                     ...[
+                            ["Ann","Lisa","Pedicure","20%","10%",'March 01, 2025']
                         
                     ].map((row, index) => [(index + 1) + ".", ...row]),
                 ],
@@ -75,7 +76,7 @@ const Commission_List: React.FC = () => {
                         links={[
                             { text: "Dashboard", link: "/" },
                         ]}
-                        active="Manage Commission and Sales"
+                        active="Manage Commission"
                         buttons={
                             <Link to="/customer/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
                                 <i className="ri-add-line"></i> Add New Commission

@@ -11,10 +11,10 @@ import Sales_List from './pages/sales/SalesList';
 import Student_Registration from './pages/sales/SalesRegister';
 import Employee_List from './pages/EmployeeInformation/EmployeeList';
 import Employee_Registration from './pages/EmployeeInformation/EmployeeRegister';
+import ReportList from './pages/reportinformation/ReportList';
+import EmployeeList from './pages/EmployeeInformation/EmployeeList';
+import Employee_Register from './pages/EmployeeInformation/EmployeeRegister';
 import Report_List from './pages/reportinformation/ReportList';
-import Employee_List from './pages/EmployeeInformation/EmployeeList';
-import Employee_Registration from './pages/EmployeeInformation/EmployeeRegister';
-import Report_List from './pages/reportinformation/report';
 import MonthlyReportList from './pages/reportinformation/monthly';
 
 
