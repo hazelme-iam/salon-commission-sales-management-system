@@ -5,7 +5,8 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import ProfileImage from "../../assets/avatar.png";
 
 interface FormData {
- 
+    
+    employeeID: string;
     employeeName: string;
     customerName: string;
     service: string;
@@ -15,6 +16,7 @@ interface FormData {
 }
 
 const initialFormData: FormData = {
+    employeeID: "",
     employeeName: "",
     customerName: "",
     service: "",
@@ -62,7 +64,7 @@ function Commission_Registration() {
                     <Breadcrumb
                         title="Add Commission"
                         links={[
-                            { text: "commission", link: "/commission" },
+                            { text: "commission", link: "/commissions" },
                         ]}
                         active="Add New Commission"
                     />
@@ -76,6 +78,7 @@ function Commission_Registration() {
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             {[
+                                                 ["Employee ID", "employeeID", "bi bi-card-list"],
                                                 ["Employee Name", "employeeName", "bi bi-person"],
                                                 ["Customer Name", "customerName", "bi bi-person"],
                                                 ["Service", "service", "bi bi-building"],

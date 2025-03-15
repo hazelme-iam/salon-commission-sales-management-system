@@ -5,61 +5,53 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import ProfileImage from "../../assets/avatar.png";
 
 interface FormData {
-    firstName: string;
-    lastName: string;
-    course: string;
-    email: string;
-    phone: string;
-    region: string;
-    province: string;
-    city: string;
-    barangay: string;
-    postalCode: string;
-    biography: string;
-    photo?: File | null;
+ 
+    employeeID: string;
+    employeeName: string;
+    baseSalary: string;
+    totalCommission: string;
+    totalSales: string;
+    
 }
 
 const initialFormData: FormData = {
-    firstName: "",
-    lastName: "",
-    course: "",
-    email: "",
-    phone: "",
-    region: "",
-    province: "",
-    city: "",
-    barangay: "",
-    postalCode: "",
-    biography: "",
-    photo: null,
+    employeeID: "",
+    employeeName: "",
+    baseSalary:  "",
+    totalCommission:"",
+    totalSales: "",
+    
+   
 };
 
-function Student_Registration() {
+function Salary_Registration() {
     const [formData, setFormData] = useState<FormData>(initialFormData);
-    const [imagePreview, setImagePreview] = useState<string>(ProfileImage);
+    const [errors, setErrors] = useState<Partial<FormData>>({});
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        setErrors({ ...errors, [e.target.name]: "" });
     };
 
-    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => setImagePreview(e.target?.result as string);
-            reader.readAsDataURL(file);
-            setFormData({ ...formData, photo: file });
-        }
-    };
-
-    const handleRemoveImage = () => {
-        setImagePreview(ProfileImage);
-        setFormData({ ...formData, photo: null });
+    const validateForm = () => {
+        const newErrors: Partial<FormData> = {};
+        if (!formData.employeeID) newErrors.employeeID = "Employee ID is required";
+        if (!formData.employeeName) newErrors.employeeName = "Employee Name is required";
+        if (!formData.baseSalary) newErrors.baseSalary= "Base Salaryis required";
+        if (!formData.totalCommission) newErrors.totalCommission = "Total Commission is required";
+        if (!formData.totalSales) newErrors.totalSales = "Total Sales is required";
+      
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Form submitted", formData);
+        if (validateForm()) {
+            console.log("Form submitted", formData);
+        } else {
+            console.log("Form has errors");
+        }
     };
 
     return (
@@ -68,13 +60,12 @@ function Student_Registration() {
             <Sidemenu />
             <div className="main-content app-content">
                 <div className="container-fluid">
-
                     <Breadcrumb
-                        title="Student Registration"
+                        title="View Salary"
                         links={[
-                            { text: "Students", link: "/students information" },
+                            { text: "salary", link: "/viewsalary" },
                         ]}
-                        active="Register New Students"
+                        active="Add New Salary"
                     />
 
                     <div className="grid grid-cols-12 gap-x-6">
@@ -82,33 +73,15 @@ function Student_Registration() {
                             <div className="box overflow-hidden main-content-card">
                                 <div className="box-body p-5">
                                     <form onSubmit={handleSubmit}>
-                                        <div className="mb-4 flex items-start gap-4">
-                                            <span className="avatar avatar-xxl">
-                                                <img src={imagePreview} alt="Profile" id="profile-img" />
-                                            </span>
-                                            <div className="mt-2">
-                                                <label className="block font-medium mb-2">Profile Picture</label>
-                                                <div className="flex gap-2">
-                                                    <label className="bg-gray-300 text-dark px-4 py-2 rounded cursor-pointer">
-                                                        <i className="bi bi-upload"></i>
-                                                        <span className="px-2">Upload</span>
-                                                        <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
-                                                    </label>
-                                                    <button type="button" className="bg-gray-300 px-4 py-2 rounded" onClick={handleRemoveImage}>
-                                                        <i className="bi bi-trash-fill"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <hr className="mt-3 mb-6" />
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             {[
-                                               ["Employee Name", "employeeName", "bi bi-person"],
-                                               ["Base Salary", "baseSalary", "bi bi-cash"],
-                                               ["Total Commission", "totalCommission", "bi bi-coin"],
-                                               ["Total Salary", "totalSalary", "bi bi-wallet"]
+                                                ["Employee ID", "employeeID", "bi bi-card-list"],
+                                                ["Employee Name", "employeeName", "bi bi-person"],
+                                                ["Base Salary", "baseSalary", "bi bi-cash"],
+                                                ["Total Commission", "totalCommission", "bi bi-graph-up"],
+                                                ["Total Sales", "totalSales", "bi bi-wallet"]
                                             ].map(([label, name, icon, type = "text"]) => (
                                                 <div key={name} className="relative">
                                                     <label className="block font-medium mb-1" htmlFor={name}>{label}</label>
@@ -121,6 +94,7 @@ function Student_Registration() {
                                                             <i className={icon}></i>
                                                         </div>
                                                     </div>
+                                                    {errors[name as keyof FormData] && <p className="text-red-500 text-sm">{errors[name as keyof FormData]}</p>}
                                                 </div>
                                             ))}
                                         </div>
@@ -143,4 +117,4 @@ function Student_Registration() {
     );
 }
 
-export default Student_Registration;
+export default Salary_Registration;

@@ -1,14 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react"; 
 import { Grid, html } from "gridjs";
 import "gridjs/dist/theme/mermaid.css";
 import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 
+
 import Profile from "../../assets/avatar.png";
 import { Link } from 'react-router-dom';
 
-const Student_List: React.FC = () => {
+const Salary_List: React.FC = () => {
     const gridRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -17,7 +18,7 @@ const Student_List: React.FC = () => {
                 columns: [
                     { name: "#", width: "10px" },
                     {
-                        name: "Entry 1",
+                        name: "Employee ID",
                         width: "200px",
                         formatter: (_, row) =>
                             html(`
@@ -28,10 +29,11 @@ const Student_List: React.FC = () => {
                                 </div>
                             `),
                     },
-                    { name: "Employee Name", width: "180px" },
-                    { name: "Base Salary", width: "150px" },
-                    { name: "Total Commission", width: "150px" },
-                    { name: "Total Salary", width: "150px" },
+                    { name: "Employee Name", width: "200px" },
+                    { name: "Base Salary", width: "200px" },
+                    { name: "Total Commission", width: "200px" },
+                    { name: "Total Salary", width: "200px" },
+                    
                     {
                         name: "Actions",
                         width: "150px",
@@ -55,18 +57,18 @@ const Student_List: React.FC = () => {
                 sort: true,
                 data: [
                     ...[
-                        ["001", "Ann Edubas", "2000", "300", "2300"],
-                        ["002", "John Smith", "1800", "250", "2050"],
-                        ["003", "Lisa Brown", "2200", "400", "2600"],
-                        ["004", "David Garcia", "1900", "350", "2250"],
-                        ["005", "Sophia Martinez", "2100", "500", "2600"],
-                        ["006", "Michael Lee", "1750", "200", "1950"],
-                       
+                        ["001", "Hazel Nandong", "₱5,000", "20%", "₱6,000", "March 01, 2025"],
+                        ["002", "Roannne Olape", "₱4,800", "18%", "₱5,664", "March 01, 2025"],
+                        ["003", "Twella Sabella", "₱5,200", "22%", "₱6,344", "March 01, 2025"],
+                        ["004", "Angelie Silvano", "₱4,500", "19%", "₱5,355", "March 01, 2025"],
+                        ["005", "Pia Sarzuelo", "₱5,500", "25%", "₱6,875", "March 01, 2025"]
+                        
                     ].map((row, index) => [(index + 1) + ".", ...row]),
                 ],
             }).render(gridRef.current);
         }
     }, []);
+
     return (
         <>
             <Header />
@@ -76,12 +78,12 @@ const Student_List: React.FC = () => {
                     <Breadcrumb
                         title="View Salary"
                         links={[
-                            { text: "Dashboard", link: "/students" },
+                            { text: "Dashboard", link: "/" },
                         ]}
-                        active="Salary"
+                        active="View Salary"
                         buttons={
-                            <Link to="/student/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                                <i className="ri-add-line"></i> Add Salary
+                            <Link to="/viewsalary/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
+                                <i className="ri-add-line"></i> Add New Salary
                             </Link>
                         }
                     />
@@ -102,4 +104,4 @@ const Student_List: React.FC = () => {
     );
 };
 
-export default Student_List;
+export default Salary_List;
