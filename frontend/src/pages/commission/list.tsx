@@ -18,7 +18,7 @@ const Commission_List: React.FC = () => {
                 columns: [
                     { name: "#", width: "10px" },
                     {
-                        name: "Employee Name",
+                        name: "Employee ID",
                         width: "200px",
                         formatter: (_, row) =>
                             html(`
@@ -29,6 +29,7 @@ const Commission_List: React.FC = () => {
                                 </div>
                             `),
                     },
+                    { name: "Employee Name", width: "200px" },
                     { name: "Customer Name", width: "200px" },
                     { name: "Service", width: "200px" },
                     { name: "Sales", width: "200px" },
@@ -57,10 +58,11 @@ const Commission_List: React.FC = () => {
                 sort: true,
                 data: [
                     ...[
-                            ["Ann","Lisa","Pedicure","20%","10%",'March 01, 2025'],
-                            ["Jeonghan","Woozi","Gluta Drip","20%","10%","March 02, 2025"],
-                            ["Jennie", "Rosé", "Rebonding", "30%", "12%", "March 10, 2025"],
-                            ["Jisoo", "Lisa", "Keratin Treatment", "25%", "15%", "March 05, 2025"],
+                        ["001", "Hazel Nandong", "Alice Reyes", "Haircut & Color", "₱2,000", "20%", "March 01, 2025"],
+                        ["002", "Roannne Olape", "Brenda Santos", "Manicure & Pedicure", "₱1,800", "18%", "March 01, 2025"],
+                        ["003", "Twella Sabella", "Carla Dizon", "Facial Treatment", "₱2,200", "22%", "March 01, 2025"],
+                        ["004", "Angelie Silvano", "Diana Cruz", "Hair Rebonding", "₱2,500", "19%", "March 01, 2025"],
+                        ["005", "Pia Sarzuelo", "Ella Flores", "Eyelash Extension", "₱2,800", "25%", "March 01, 2025"]
                         
                     ].map((row, index) => [(index + 1) + ".", ...row]),
                 ],
@@ -81,7 +83,7 @@ const Commission_List: React.FC = () => {
                         ]}
                         active="Manage Commission"
                         buttons={
-                            <Link to="/customer/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
+                            <Link to="/commissions/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
                                 <i className="ri-add-line"></i> Add New Commission
                             </Link>
                         }

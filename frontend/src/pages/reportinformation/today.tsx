@@ -93,11 +93,11 @@ const TodayReportList: React.FC = () => {
             <Sidemenu />
             <div className="main-content app-content">
                 <Breadcrumb
-                        title="Monthly Report"
+                        title="Today Report"
                         links={[
                             { text: "Dashboard", link: "/" },
                         ]}
-                         active="Monthly Report" 
+                         active="Today Report" 
                     />
 
                     {/* Export Buttons */}

@@ -12,7 +12,7 @@ interface FormData {
     commission_rate: string;
     shift_schedule: string;
     emergency_contact: string;
-    photo?: File | null;
+   
 }
 
 const initialFormData: FormData = {
@@ -23,7 +23,7 @@ const initialFormData: FormData = {
     commission_rate: "",
     shift_schedule: "",
     emergency_contact: "",
-    photo: null,
+   
 };
 
 function Employee_Registration() {
