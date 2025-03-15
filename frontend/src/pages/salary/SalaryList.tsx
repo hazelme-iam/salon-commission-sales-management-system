@@ -29,19 +29,12 @@ const Salary_List: React.FC = () => {
                                 </div>
                             `),
                     },
-<<<<<<< HEAD:frontend/src/pages/sales/SalesList.tsx
                     { name: "Employee Name", width: "180px" },
                     { name: "Base Salary", width: "150px" },
                     { name: "Total Sales", width: "150px" },
                     { name: "Total Commission", width: "150px" },
                     { name: "Total Salary", width: "150px" },
-=======
-                    { name: "Employee Name", width: "200px" },
-                    { name: "Base Salary", width: "200px" },
-                    { name: "Total Commission", width: "200px" },
-                    { name: "Total Salary", width: "200px" },
-                    
->>>>>>> 996cebbdc81f844d569f1d4e8aab2b0edfe633de:frontend/src/pages/salary/SalaryList.tsx
+
                     {
                         name: "Actions",
                         width: "150px",
@@ -89,15 +82,11 @@ const Salary_List: React.FC = () => {
                             { text: "Dashboard", link: "/" },
                         ]}
                         active="View Salary"
-<<<<<<< HEAD:frontend/src/pages/sales/SalesList.tsx
-                        
-=======
                         buttons={
                             <Link to="/viewsalary/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
                                 <i className="ri-add-line"></i> Add New Salary
                             </Link>
                         }
->>>>>>> 996cebbdc81f844d569f1d4e8aab2b0edfe633de:frontend/src/pages/salary/SalaryList.tsx
                     />
 
                     <div className="grid grid-cols-12 gap-x-6">

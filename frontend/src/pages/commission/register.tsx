@@ -2,7 +2,6 @@ import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 import { useState, ChangeEvent, FormEvent } from "react";
-import ProfileImage from "../../assets/avatar.png";
 
 interface FormData {
     
@@ -66,7 +65,7 @@ function Commission_Registration() {
                         links={[
                             { text: "commission", link: "/commissions" },
                         ]}
-                        active="Register New Customer"
+                        active="Add Commission and Sales"
                     />
 
                     <div className="grid grid-cols-12 gap-x-6">
@@ -82,7 +81,7 @@ function Commission_Registration() {
                                                 ["Employee Name", "employeeName", "bi bi-person"],
                                                 ["Customer Name", "customerName", "bi bi-person"],
                                                 ["Service", "service", "bi bi-building"],
-                                                ["Sales", "sales", "bi bi-coin", "email"],
+                                                ["Sales", "sales", "bi bi-coin"],
                                                 ["Commission", "commission", "bi bi-cash"],
                                                 ["Date", "date", "bi bi-calendar", "date"],
                                             ].map(([label, name, icon, type = "text"]) => (
