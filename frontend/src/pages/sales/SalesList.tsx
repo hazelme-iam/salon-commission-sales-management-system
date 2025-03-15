@@ -30,6 +30,7 @@ const Student_List: React.FC = () => {
                     },
                     { name: "Employee Name", width: "180px" },
                     { name: "Base Salary", width: "150px" },
+                    { name: "Total Sales", width: "150px" },
                     { name: "Total Commission", width: "150px" },
                     { name: "Total Salary", width: "150px" },
                     {
