@@ -14,6 +14,7 @@ import Report_List from './pages/reportinformation/employeeSalary';
 import MonthlyReportList from './pages/reportinformation/monthly';
 import TodayReportList from './pages/reportinformation/today';
 import WeeklyReportList from './pages/reportinformation/weekly';
+import Edit_Commission from './pages/commission/edit';
 
 
 
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/monthlyreports" element={<MonthlyReportList/>} />
         <Route path="/todayreports" element={<TodayReportList/>} />
         <Route path="/weeklyreports" element={<WeeklyReportList/>} />
+        <Route path="/edit" element={<Edit_Commission/>} />
 
 
     
