@@ -2,65 +2,55 @@ import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 import { useState, ChangeEvent, FormEvent } from "react";
-
+import ProfileImage from "../../assets/avatar.png";
 
 interface FormData {
-    firstName: string;
-    lastName: string;
-    phone: string;
-    role: string;
-    commission_rate: string;
-    shift_schedule: string;
-    emergency_contact: string;
-   
+ 
+    employeeID: string;
+    employeeName: string;
+    baseSalary: string;
+    totalCommission: string;
+    totalSales: string;
+    
 }
 
 const initialFormData: FormData = {
-    firstName: "",
-    lastName: "",
-    phone: "",
-    role: "",
-    commission_rate: "",
-    shift_schedule: "",
-    emergency_contact: "",
+    employeeID: "",
+    employeeName: "",
+    baseSalary:  "",
+    totalCommission:"",
+    totalSales: "",
+    
    
 };
 
-function Employee_Registration() {
+function Salary_Registration() {
     const [formData, setFormData] = useState<FormData>(initialFormData);
-   
+    const [errors, setErrors] = useState<Partial<FormData>>({});
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        setErrors({ ...errors, [e.target.name]: "" });
     };
 
-   
+    const validateForm = () => {
+        const newErrors: Partial<FormData> = {};
+        if (!formData.employeeID) newErrors.employeeID = "Employee ID is required";
+        if (!formData.employeeName) newErrors.employeeName = "Employee Name is required";
+        if (!formData.baseSalary) newErrors.baseSalary= "Base Salaryis required";
+        if (!formData.totalCommission) newErrors.totalCommission = "Total Commission is required";
+        if (!formData.totalSales) newErrors.totalSales = "Total Sales is required";
+      
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const formDataToSend = new FormData();
-        Object.entries(formData).forEach(([key, value]) => {
-            if (value) {
-                formDataToSend.append(key, value as string);
-            }
-        });
-
-        try {
-            const response = await fetch("http://localhost:8000/employees/", {
-                method: "POST",
-                body: formDataToSend,
-            });
-
-            if (response.ok) {
-                alert("Employee Registered Successfully!");
-                setFormData(initialFormData); // Reset Form
-            } else {
-                alert("Failed to register employee.");
-            }
-        } catch (error) {
-            console.error("Error submitting form:", error);
-            alert("An error occurred.");
+        if (validateForm()) {
+            console.log("Form submitted", formData);
+        } else {
+            console.log("Form has errors");
         }
     };
 
@@ -71,9 +61,11 @@ function Employee_Registration() {
             <div className="main-content app-content">
                 <div className="container-fluid">
                     <Breadcrumb
-                        title="Employee Registration"
-                        links={[{ text: "Employee", link: "/employees" }]}
-                        active="Register New Employee"
+                        title="View Salary"
+                        links={[
+                            { text: "salary", link: "/viewsalary" },
+                        ]}
+                        active="Add New Salary"
                     />
 
                     <div className="grid grid-cols-12 gap-x-6">
@@ -81,18 +73,15 @@ function Employee_Registration() {
                             <div className="box overflow-hidden main-content-card">
                                 <div className="box-body p-5">
                                     <form onSubmit={handleSubmit}>
-                                       
                                         <hr className="mt-3 mb-6" />
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             {[
-                                                ["First Name", "firstName", "bi bi-person"],
-                                                ["Last Name", "lastName", "bi bi-person"],
-                                                ["Phone", "phone", "bi bi-telephone", "tel"],
-                                                ["Role", "role", "bi bi-person-badge"],
-                                                ["Commission Rate", "commission_rate", "bi bi-cash"],
-                                                ["Shift Schedule", "shift_schedule", "bi bi-calendar-week"],
-                                                ["Emergency Contact", "emergency_contact", "bi bi-person-lines-fill"]
+                                                ["Employee ID", "employeeID", "bi bi-card-list"],
+                                                ["Employee Name", "employeeName", "bi bi-person"],
+                                                ["Base Salary", "baseSalary", "bi bi-cash"],
+                                                ["Total Commission", "totalCommission", "bi bi-graph-up"],
+                                                ["Total Sales", "totalSales", "bi bi-wallet"]
                                             ].map(([label, name, icon, type = "text"]) => (
                                                 <div key={name} className="relative">
                                                     <label className="block font-medium mb-1" htmlFor={name}>{label}</label>
@@ -105,6 +94,7 @@ function Employee_Registration() {
                                                             <i className={icon}></i>
                                                         </div>
                                                     </div>
+                                                    {errors[name as keyof FormData] && <p className="text-red-500 text-sm">{errors[name as keyof FormData]}</p>}
                                                 </div>
                                             ))}
                                         </div>
@@ -127,4 +117,4 @@ function Employee_Registration() {
     );
 }
 
-export default Employee_Registration;
+export default Salary_Registration;

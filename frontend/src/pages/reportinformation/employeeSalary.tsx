@@ -104,7 +104,7 @@ const Report_List: React.FC = () => {
                     <div className="flex gap-4 mb-4">
                         <Button variant="contained" color="primary" onClick={printReport}>Print Report</Button>
                         <Button variant="contained" color="secondary" onClick={exportCSV}>Export CSV</Button>
-                        <Button variant="outlined" color="default" onClick={exportTXT}>Export TXT</Button>
+                        <Button variant="outlined"  color="default" onClick={exportTXT}>Export TXT</Button>
                     </div>
 
                     {/* Report Table */}

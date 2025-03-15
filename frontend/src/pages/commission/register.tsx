@@ -2,18 +2,21 @@ import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 import { useState, ChangeEvent, FormEvent } from "react";
-
+import ProfileImage from "../../assets/avatar.png";
 
 interface FormData {
+    
+    employeeID: string;
     employeeName: string;
     customerName: string;
     service: string;
-    commission: string;
     sales: string;
+    commission: string;
     date: string;
-};
+}
 
 const initialFormData: FormData = {
+    employeeID: "",
     employeeName: "",
     customerName: "",
     service: "",
@@ -22,7 +25,7 @@ const initialFormData: FormData = {
     date: "",
 };
 
-function Customer_Registration() {
+function Commission_Registration() {
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const [errors, setErrors] = useState<Partial<FormData>>({});
 
@@ -59,11 +62,11 @@ function Customer_Registration() {
             <div className="main-content app-content">
                 <div className="container-fluid">
                     <Breadcrumb
-                        title="Customer Registration"
+                        title="Add Commission"
                         links={[
-                            { text: "commission", link: "/customers" },
+                            { text: "commission", link: "/commissions" },
                         ]}
-                        active="Add Commission and Sales"
+                        active="Register New Customer"
                     />
 
                     <div className="grid grid-cols-12 gap-x-6">
@@ -75,10 +78,11 @@ function Customer_Registration() {
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             {[
+                                                 ["Employee ID", "employeeID", "bi bi-card-list"],
                                                 ["Employee Name", "employeeName", "bi bi-person"],
                                                 ["Customer Name", "customerName", "bi bi-person"],
                                                 ["Service", "service", "bi bi-building"],
-                                                ["Sales", "sales", "bi bi-coin"],
+                                                ["Sales", "sales", "bi bi-coin", "email"],
                                                 ["Commission", "commission", "bi bi-cash"],
                                                 ["Date", "date", "bi bi-calendar", "date"],
                                             ].map(([label, name, icon, type = "text"]) => (
@@ -116,4 +120,4 @@ function Customer_Registration() {
     );
 }
 
-export default Customer_Registration;
+export default Commission_Registration;

@@ -44,13 +44,13 @@ return (
 
 <li className="slide__category"><span className='category-name'>Commission & Sales</span></li>
 <li className="slide">
-    <Link to='/customers' className="side-menu__item">
+    <Link to='/commissions' className="side-menu__item">
         <i className="w-6 h-4 side-menu__icon bi bi-info-lg"></i>
         <span className="side-menu__label">Add Commissions</span>
     </Link>
 </li>
 <li className="slide">
-    <Link to='/sales' className="side-menu__item">
+    <Link to='/viewsalary' className="side-menu__item">
         <i className="w-6 h-4 side-menu__icon bi bi-currency-dollar"></i>
         <span className="side-menu__label">View Salary</span>
     </Link>
@@ -70,7 +70,7 @@ return (
     </Link>
 </li>
 <li className="slide">
-    <Link to='/weekreports' className="side-menu__item">
+    <Link to='/weeklyreports' className="side-menu__item">
         <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
         <span className="side-menu_label">Week Revenue & Sales</span>
     </Link>

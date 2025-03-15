@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"; //TIWASON UGMA 
+import React, { useEffect, useRef } from "react"; 
 import { Grid, html } from "gridjs";
 import "gridjs/dist/theme/mermaid.css";
 import Breadcrumb from "../../components/breadcrumbs";
@@ -18,7 +18,7 @@ const Commission_List: React.FC = () => {
                 columns: [
                     { name: "#", width: "10px" },
                     {
-                        name: "Employee Name",
+                        name: "Employee ID",
                         width: "200px",
                         formatter: (_, row) =>
                             html(`
@@ -29,6 +29,7 @@ const Commission_List: React.FC = () => {
                                 </div>
                             `),
                     },
+                    { name: "Employee Name", width: "200px" },
                     { name: "Customer Name", width: "200px" },
                     { name: "Service", width: "200px" },
                     { name: "Sales", width: "200px" },
@@ -36,7 +37,7 @@ const Commission_List: React.FC = () => {
                     { name: "Date", width: "200px" },
                     {
                         name: "Actions",
-                        width: "80px",
+                        width: "150px",
                         formatter: () =>
                             html(`
                                  <div class="flex justify-center gap-2">
@@ -57,6 +58,11 @@ const Commission_List: React.FC = () => {
                 sort: true,
                 data: [
                     ...[
+                        ["001", "Hazel Nandong", "Alice Reyes", "Haircut & Color", "₱2,000", "20%", "March 01, 2025"],
+                        ["002", "Roannne Olape", "Brenda Santos", "Manicure & Pedicure", "₱1,800", "18%", "March 01, 2025"],
+                        ["003", "Twella Sabella", "Carla Dizon", "Facial Treatment", "₱2,200", "22%", "March 01, 2025"],
+                        ["004", "Angelie Silvano", "Diana Cruz", "Hair Rebonding", "₱2,500", "19%", "March 01, 2025"],
+                        ["005", "Pia Sarzuelo", "Ella Flores", "Eyelash Extension", "₱2,800", "25%", "March 01, 2025"]
                         
                     ].map((row, index) => [(index + 1) + ".", ...row]),
                 ],
@@ -75,10 +81,10 @@ const Commission_List: React.FC = () => {
                         links={[
                             { text: "Dashboard", link: "/" },
                         ]}
-                        active="Manage Commission and Sales"
+                        active="Manage Commission"
                         buttons={
-                            <Link to="/customer/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                                <i className="ri-add-line"></i> Add New
+                            <Link to="/commissions/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
+                                <i className="ri-add-line"></i> Add New Commission
                             </Link>
                         }
                     />

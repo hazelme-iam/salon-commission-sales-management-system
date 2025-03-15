@@ -50,7 +50,7 @@ const Employee_List: React.FC = () => {
                     { name: "Emergency Contact", width: "200px" },
                     {
                         name: "Actions",
-                        width: "90px",
+                        width: "150px",
                         formatter: () =>
                             html(`
                                  <div class="flex justify-center gap-2">
@@ -69,20 +69,19 @@ const Employee_List: React.FC = () => {
                 pagination: { limit: 10 },
                 search: true,
                 sort: true,
-                data: employees.map((employee, index) => [
-                    (index + 1) + ".",
-                    employee.id,
-                    employee.firstName,
-                    employee.lastName,
-                    employee.phone,
-                    employee.role,
-                    employee.commission_rate,
-                    employee.shift_schedule,
-                    employee.emergency_contact,
-                ]),
+                data: [
+                    ...[
+                            ["001","Ann", "Edubas", "09345781324", "Nail Technician", "10%", "Monday","09743156248"],
+                            ["002","Bianca", "Quiñones", "097631452780", "Hair Treatment Expert", "10%", "Monday","09524301274"],
+                            ["003","Twella", "Sabella", "09457216501", "Nail Technician", "10%", "Tuesday","09421304528"],
+                            ["004","Angelie", "Silvano", "09363154224", "Hair Treatment Expert", "10%", "Tuesday","09732467588"],
+                            ["005","Roanne", "Olape", "09201347524", "Glutathione Specialist", "10%", "Wednesday","09724150748"],
+                    ].map((row, index) => [(index + 1) + ".", ...row]),
+                ],
             }).render(gridRef.current);
         }
-    }, [employees]);
+    }, []);
+
 
     return (
         <>
