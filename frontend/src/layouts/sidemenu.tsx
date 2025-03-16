@@ -81,6 +81,13 @@ return (
         <span className="side-menu_label">Today's Revenue & Sales</span>
     </Link>
 </li>
+<li className="slide__category"><span className='category-name'>Log Out</span></li>
+<li className="slide">
+    <Link to='/login' className="side-menu__item">
+        <i className="w-6 h-4 side-menu__icon bi bi-envelope-paper-fill"></i>
+        <span className="side-menu_label">Log Out</span>
+    </Link>
+</li>
          
                     
                 </ul>

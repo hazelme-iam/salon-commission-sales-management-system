@@ -84,7 +84,7 @@ const Salary_List: React.FC = () => {
                         active="View Salary"
                         buttons={
                             <Link to="/viewsalary/create" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                                <i className="ri-add-line"></i> Add New Salary
+                                <i className="ri-add-line"></i> Set New Salary
                             </Link>
                         }
                     />
