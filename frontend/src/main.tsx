@@ -9,6 +9,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
 import "./assets/css/style.css";
 import Dashboard from "./pages/dashboard";
 import Commission_Registration from "./pages/commission/register";
@@ -24,6 +25,8 @@ import WeeklyReportList from "./pages/reportinformation/weekly";
 import Edit_Commission from "./pages/commission/edit";
 import Login from "./log-in/login";
 import ProtectedRoute from "./ProtectedRoute"; 
+
+
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

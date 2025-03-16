@@ -1,4 +1,4 @@
-/* General Page Styling */
+/* Apply background only to login page */
 body.login-page {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -10,20 +10,20 @@ body.login-page {
   justify-content: center;
 }
 
-/* Login Container */
+/* Scope all login styles under .login-container */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100vw; /* Ensure full width */
+  width: 100vw;
 }
 
 /* Login Box */
-.login-box {
+.login-container .login-box {
   display: flex;
-  width: 80%; /* Adjust width */
-  max-width: 900px; /* Prevent it from becoming too large */
+  width: 80%;
+  max-width: 900px;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
@@ -32,11 +32,11 @@ body.login-page {
   border: 1px solid rgba(255, 255, 255, 0.2);
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap; /* Allow content to wrap on small screens */
+  flex-wrap: wrap;
 }
 
-/* Left Section - Login Form */
-.login-form {
+/* Login Form */
+.login-container .login-form {
   width: 50%;
   padding: 40px;
   display: flex;
@@ -44,7 +44,8 @@ body.login-page {
   justify-content: center;
 }
 
-h2 {
+/* Headings */
+.login-container h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
@@ -53,41 +54,25 @@ h2 {
   font-size: 38px;
 }
 
-p {
-  font-size: 18px;
-  color: rgb(105, 96, 102);
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.8px;
-}
-
-p a {
-  font-size: 18px;
-  font-weight: bold;
-  color: rgb(9, 49, 150);
-  text-decoration: underline;
-}
-
 /* Input Fields */
-input[type="email"],
-input[type="password"] {
+.login-container input[type="email"],
+.login-container input[type="password"] {
   width: 100%;
   padding: 15px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 8px;
   height: 50px;
-  font-size: 18px ;
+  font-size: 18px;
 }
 
-input::placeholder {
+.login-container input::placeholder {
   font-size: 18px;
   color: #888;
 }
 
 /* Button */
-button {
+.login-container button {
   width: 100%;
   padding: 12px;
   background: #6a11cb;
@@ -99,16 +84,16 @@ button {
   transition: 0.3s;
 }
 
-button:hover {
+.login-container button:hover {
   background: #2575fc;
 }
 
-/* Right Section - Image */
-.login-image {
+/* Login Image */
+.login-container .login-image {
   width: 50%;
 }
 
-.login-image img {
+.login-container .login-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -116,23 +101,23 @@ button:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .login-box {
+  .login-container .login-box {
     flex-direction: column;
     width: 90%;
     max-width: 400px;
   }
 
-  .login-form {
+  .login-container .login-form {
     width: 100%;
     padding: 30px;
   }
 
-  .login-image {
+  .login-container .login-image {
     display: none;
   }
 
-  input[type="email"],
-  input[type="password"] {
+  .login-container input[type="email"],
+  .login-container input[type="password"] {
     padding: 12px;
     height: 45px;
   }
