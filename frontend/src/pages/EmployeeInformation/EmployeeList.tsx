@@ -23,74 +23,37 @@ const Employee_List: React.FC = () => {
     const navigate = useNavigate();
 
     // Fetch employees from localStorage
-    const fetchEmployees = () => {
+    useEffect(() => {
         const storedEmployees = JSON.parse(localStorage.getItem("employees") || "[]");
         setEmployees(storedEmployees);
-    };
-
-    // Function to delete an employee
-    const deleteEmployee = (id: string) => {
-        // Confirm deletion
-        const confirmDelete = window.confirm("Are you sure you want to delete this employee?");
-        if (!confirmDelete) return;
-
-        // Filter out the employee with the given id
-        const updatedEmployees = employees.filter(emp => emp.id !== id);
-
-        // Update localStorage
-        localStorage.setItem("employees", JSON.stringify(updatedEmployees));
-
-        // Update state
-        setEmployees(updatedEmployees);
-
-        alert("Employee deleted successfully!");
-    };
-
-    // Function to navigate to the update page
-    const updateEmployee = (id: string) => {
-        navigate(`/editemployee/${id}`); // Corrected URL
-    };
-
-    // Initialize data on component mount
-    useEffect(() => {
-        fetchEmployees();
     }, []);
 
-    // Define columns for the table
+    // ✅ Fixed: Use a functional update to delete
+    const deleteEmployee = (id: string) => {
+        if (window.confirm("Are you sure you want to delete this employee?")) {
+            setEmployees(prevEmployees => {
+                const updatedEmployees = prevEmployees.filter(emp => emp.id !== id);
+                localStorage.setItem("employees", JSON.stringify(updatedEmployees)); // Sync with localStorage
+                return updatedEmployees;
+            });
+        }
+    };
+
+    const updateEmployee = (id: string) => {
+        navigate(`/editemployee/${id}`);
+    };
+
+    // Define columns
     const columns = useMemo(
         () => [
-            {
-                header: "ID",
-                accessorKey: "id",
-            },
-            {
-                header: "First Name",
-                accessorKey: "firstName",
-            },
-            {
-                header: "Last Name",
-                accessorKey: "lastName",
-            },
-            {
-                header: "Phone",
-                accessorKey: "phone",
-            },
-            {
-                header: "Role",
-                accessorKey: "role",
-            },
-            {
-                header: "Commission Rate",
-                accessorKey: "commission_rate",
-            },
-            {
-                header: "Shift Schedule",
-                accessorKey: "shift_schedule",
-            },
-            {
-                header: "Emergency Contact",
-                accessorKey: "emergency_contact",
-            },
+            { header: "ID", accessorKey: "id" },
+            { header: "First Name", accessorKey: "firstName" },
+            { header: "Last Name", accessorKey: "lastName" },
+            { header: "Phone", accessorKey: "phone" },
+            { header: "Role", accessorKey: "role" },
+            { header: "Commission Rate", accessorKey: "commission_rate" },
+            { header: "Shift Schedule", accessorKey: "shift_schedule" },
+            { header: "Emergency Contact", accessorKey: "emergency_contact" },
             {
                 header: "Actions",
                 cell: ({ row }: any) => (
@@ -116,7 +79,6 @@ const Employee_List: React.FC = () => {
         []
     );
 
-    // Create a table instance
     const table = useReactTable({
         data: employees,
         columns,
@@ -147,7 +109,6 @@ const Employee_List: React.FC = () => {
                         <div className="xxl:col-span-12 col-span-12">
                             <div className="box overflow-hidden main-content-card">
                                 <div className="box-body p-5">
-                                    {/* TanStack Table */}
                                     <div className="overflow-x-auto">
                                         <table className="min-w-full bg-white">
                                             <thead>

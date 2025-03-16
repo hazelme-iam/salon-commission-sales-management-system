@@ -23,65 +23,36 @@ const Commission_List: React.FC = () => {
     const navigate = useNavigate();
 
     // Fetch commissions data from localStorage
-    const fetchCommissions = () => {
+    useEffect(() => {
         const storedCommissions = JSON.parse(localStorage.getItem("commissions") || "[]");
         setCommissions(storedCommissions);
-    };
+    }, []);
 
-    // Function to handle deletion of a commission
+    // ✅ Fixed: Use a functional update for state
     const handleDelete = (id: string) => {
         if (window.confirm("Are you sure you want to delete this commission?")) {
-            const updatedCommissions = commissions.filter(comm => comm.id !== id);
-            setCommissions(updatedCommissions);
-            localStorage.setItem("commissions", JSON.stringify(updatedCommissions));
+            setCommissions(prevCommissions => {
+                const updatedCommissions = prevCommissions.filter(comm => comm.id !== id);
+                localStorage.setItem("commissions", JSON.stringify(updatedCommissions)); // Sync with localStorage
+                return updatedCommissions;
+            });
         }
     };
 
-    // Function to handle updating a commission
     const handleUpdate = (id: string) => {
         navigate(`/edit?id=${id}`);
     };
 
-    // Initialize data on component mount
-    useEffect(() => {
-        fetchCommissions();
-    }, []);
-
-    // Define columns for the table
     const columns = useMemo(
         () => [
-            {
-                header: "ID",
-                accessorKey: "id",
-            },
-            {
-                header: "Employee",
-                accessorKey: "employeeName",
-            },
-            {
-                header: "Customer Name",
-                accessorKey: "customerName",
-            },
-            {
-                header: "Service",
-                accessorKey: "service",
-            },
-            {
-                header: "Sales",
-                accessorKey: "sales",
-            },
-            {
-                header: "Discount",
-                accessorKey: "discount",
-            },
-            {
-                header: "Commission Amount",
-                accessorKey: "amount",
-            },
-            {
-                header: "Date",
-                accessorKey: "date",
-            },
+            { header: "ID", accessorKey: "id" },
+            { header: "Employee", accessorKey: "employeeName" },
+            { header: "Customer Name", accessorKey: "customerName" },
+            { header: "Service", accessorKey: "service" },
+            { header: "Sales", accessorKey: "sales" },
+            { header: "Discount", accessorKey: "discount" },
+            { header: "Commission Amount", accessorKey: "amount" },
+            { header: "Date", accessorKey: "date" },
             {
                 header: "Actions",
                 cell: ({ row }: any) => (
@@ -107,7 +78,6 @@ const Commission_List: React.FC = () => {
         []
     );
 
-    // Create a table instance
     const table = useReactTable({
         data: commissions,
         columns,
@@ -138,7 +108,6 @@ const Commission_List: React.FC = () => {
                         <div className="xxl:col-span-12 col-span-12">
                             <div className="box overflow-hidden main-content-card">
                                 <div className="box-body p-5">
-                                    {/* TanStack Table */}
                                     <div className="overflow-x-auto">
                                         <table className="min-w-full bg-white">
                                             <thead>
