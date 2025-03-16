@@ -4,11 +4,10 @@ if (!sessionStorage.getItem("sessionStarted")) {
   sessionStorage.setItem("sessionStarted", "true"); // Mark session as started
 }
 
-
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; // Import TanStack Query
 
 import "./assets/css/style.css";
 import Dashboard from "./pages/dashboard";
@@ -24,30 +23,36 @@ import TodayReportList from "./pages/reportinformation/today";
 import WeeklyReportList from "./pages/reportinformation/weekly";
 import Edit_Commission from "./pages/commission/edit";
 import Login from "./log-in/login";
-import ProtectedRoute from "./ProtectedRoute"; 
+import ProtectedRoute from "./ProtectedRoute";
+import Employee_Edit from "./pages/EmployeeInformation/EmployeeEdit";
 
-
+// Create a TanStack Query client
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/commissions" element={<Commission_List />} />
-          <Route path="/commissions/create" element={<Commission_Registration />} />
-          <Route path="/viewsalary" element={<Salary_List />} />
-          <Route path="/viewsalary/create" element={<Salary_Registration />} />
-          <Route path="/employees" element={<Employee_List />} />
-          <Route path="/employee/create" element={<Employee_Registration />} />
-          <Route path="/reports" element={<Report_List />} />
-          <Route path="/monthlyreports" element={<MonthlyReportList />} />
-          <Route path="/todayreports" element={<TodayReportList />} />
-          <Route path="/weeklyreports" element={<WeeklyReportList />} />
-          <Route path="/edit" element={<Edit_Commission />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    {/* Wrap the app with QueryClientProvider */}
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/commissions" element={<Commission_List />} />
+            <Route path="/commissions/create" element={<Commission_Registration />} />
+            <Route path="/viewsalary" element={<Salary_List />} />
+            <Route path="/viewsalary/create" element={<Salary_Registration />} />
+            <Route path="/employees" element={<Employee_List />} />
+            <Route path="/employee/create" element={<Employee_Registration />} />
+            <Route path="/reports" element={<Report_List />} />
+            <Route path="/monthlyreports" element={<MonthlyReportList />} />
+            <Route path="/todayreports" element={<TodayReportList />} />
+            <Route path="/weeklyreports" element={<WeeklyReportList />} />
+            <Route path="/edit" element={<Edit_Commission />} />
+            <Route path="/editemployee/:id" element={<Employee_Edit />} /> {/* Updated route */}
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>
 );

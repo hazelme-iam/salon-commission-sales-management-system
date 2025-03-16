@@ -3,6 +3,7 @@ import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 import { useNavigate } from "react-router-dom";
+
 interface CommissionData {
     id: string;
     employeeId: string;
@@ -48,27 +49,29 @@ function Commission_Registration() {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setCommissionData({ ...commissionData, [name]: value });
 
-        // Update commission calculation when sales input changes
-        if (name === "sales") {
-            const salesAmount = parseFloat(value) || 0;
-            const discountAmount = parseFloat(commissionData.discount) || 0;
-            const netSales = salesAmount - discountAmount;
-            setCommissionData(prev => ({
-                ...prev,
-                amount: ((commissionRate / 100) * netSales).toFixed(2), // Calculate commission
-            }));
-        }
+        // Update the state with the new value
+        const updatedData = { ...commissionData, [name]: value };
+        setCommissionData(updatedData);
 
-        // Handle discount updates
-        if (name === "discount") {
-            const discountAmount = parseFloat(value) || 0;
-            const salesAmount = parseFloat(commissionData.sales) || 0;
+        // Calculate commission when sales or discount changes
+        if (name === "sales" || name === "discount") {
+            const salesAmount = parseFloat(updatedData.sales) || 0;
+            const discountPercentage = parseFloat(updatedData.discount) || 0;
+
+            // Calculate discount amount as a percentage of sales
+            const discountAmount = (discountPercentage / 100) * salesAmount;
+
+            // Calculate net sales after applying the discount
             const netSales = salesAmount - discountAmount;
-            setCommissionData(prev => ({
+
+            // Calculate commission amount
+            const commissionAmount = (commissionRate / 100) * netSales;
+
+            // Update the commission amount in the state
+            setCommissionData((prev) => ({
                 ...prev,
-                amount: ((commissionRate / 100) * netSales).toFixed(2),
+                amount: commissionAmount.toFixed(2),
             }));
         }
     };
@@ -91,11 +94,16 @@ function Commission_Registration() {
         const selectedEmployee = employees.find(emp => emp.id === commissionData.employeeId);
         if (!selectedEmployee) return alert("Invalid Employee Selected");
 
+        const salesAmount = parseFloat(commissionData.sales) || 0;
+        const discountPercentage = parseFloat(commissionData.discount) || 0;
+        const discountAmount = (discountPercentage / 100) * salesAmount;
+        const netSales = salesAmount - discountAmount;
+
         const newCommission = {
             ...commissionData,
             id: Date.now().toString(),
             employeeName: `${selectedEmployee.firstName} ${selectedEmployee.lastName}`,
-            amount: ((commissionRate / 100) * (parseFloat(commissionData.sales) - parseFloat(commissionData.discount || "0"))).toFixed(2), // Ensure accurate calculation
+            amount: ((commissionRate / 100) * netSales).toFixed(2), // Ensure accurate calculation
         };
 
         commissions.push(newCommission);
@@ -104,7 +112,7 @@ function Commission_Registration() {
         alert("Commission Added Successfully!");
         setCommissionData(initialCommissionData);
         setCommissionRate(0);
-        
+
         navigate("/commissions");
     };
 
@@ -155,8 +163,16 @@ function Commission_Registration() {
 
                                             {/* Discount */}
                                             <div>
-                                                <label className="block font-medium mb-1" htmlFor="discount">Discount</label>
-                                                <input type="number" id="discount" name="discount" value={commissionData.discount} onChange={handleChange} className="ti-form-input rounded-sm" placeholder="Enter Discount (if any)" />
+                                                <label className="block font-medium mb-1" htmlFor="discount">Discount (%)</label>
+                                                <input
+                                                    type="number"
+                                                    id="discount"
+                                                    name="discount"
+                                                    value={commissionData.discount}
+                                                    onChange={handleChange}
+                                                    className="ti-form-input rounded-sm"
+                                                    placeholder="Enter Discount Percentage"
+                                                />
                                             </div>
 
                                             {/* Commission Amount (Auto-calculated) */}
@@ -182,7 +198,6 @@ function Commission_Registration() {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </>
