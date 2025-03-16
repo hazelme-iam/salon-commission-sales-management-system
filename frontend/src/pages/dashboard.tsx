@@ -5,6 +5,7 @@ import SalesGraph from "../components/SalesGraph";
 import RevenueGraph from "../components/RevenueGraph";
 import DailySalesSummary from "../components/Sales/DailySalesSummary";
 import WeeklySales from "../components/Sales/WeeklySales";
+import EmployeeStats from "../components/EmployeeStats";
 function Dashboard() {
     return (
         <>  
@@ -22,20 +23,29 @@ function Dashboard() {
                                             <div className="ml-64 p-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                                     
                          {/* Sales Summary */}
-                        <div className="col-span-1 md:col-span-2">
+                         
+                        <div className="col-span-2 md:col-span-2">
                             <SalesGraph />
-                            
                         </div>
+                        
                         <DailySalesSummary />
-                        <div className="col-span-1 md:col-span-2">
-                            <RevenueGraph />
+                        <div className="col-span-2 md:col-span-2">
+                        <RevenueGraph />
                         </div>
                      
                      
                                     {/* Employee Stats */}
                                     
                                     <WeeklySales />
-                    </div>
+                                    <div className="col-span-2 md:col-span-2"></div>
+                                        <EmployeeStats />
+                                    
+                                    
+                                    
+
+                        </div>
+
+                    
         </div>
     </div>
         </>
