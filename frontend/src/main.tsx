@@ -1,3 +1,10 @@
+// Ensure login resets only when the dev server restarts
+if (!sessionStorage.getItem("sessionStarted")) {
+  localStorage.removeItem("isAuthenticated"); // Clear login state only on a fresh server start
+  sessionStorage.setItem("sessionStarted", "true"); // Mark session as started
+}
+
+
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -16,19 +23,13 @@ import TodayReportList from "./pages/reportinformation/today";
 import WeeklyReportList from "./pages/reportinformation/weekly";
 import Edit_Commission from "./pages/commission/edit";
 import Login from "./log-in/login";
-import ProtectedRoute from "./ProtectedRoute"; // Import the protected route
-
-
-
+import ProtectedRoute from "./ProtectedRoute"; 
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        {/* Public Route */}
         <Route path="/login" element={<Login />} />
-
-        {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/commissions" element={<Commission_List />} />
