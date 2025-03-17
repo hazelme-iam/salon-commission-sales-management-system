@@ -8,7 +8,7 @@ return (
                 <div className="header-element">
                     <div className="horizontal-logo">
                         <a href="index.html" className="header-logo">
-                            <img src="/assets/images/brand-logos/desktop-logo.png" alt="logo"
+                            <img src="/assets/salon.jpg" alt="logo"
                                 className="desktop=logo" />
                         </a>
                     </div>

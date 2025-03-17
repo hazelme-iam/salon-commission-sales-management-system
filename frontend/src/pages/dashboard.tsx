@@ -5,39 +5,34 @@ import SalesGraph from "../components/SalesGraph";
 import RevenueGraph from "../components/RevenueGraph";
 import DailySalesSummary from "../components/Sales/DailySalesSummary";
 import WeeklySales from "../components/Sales/WeeklySales";
+
 function Dashboard() {
     return (
-        <>  
+        <>
             <Header />
             <Sidemenu />
-            <div className="main-content app-content">
+            <div className="main-content app-content ml-64 p-6 bg-gray-100 min-h-screen">
                 <div className="container-fluid">
-            <Breadcrumb title="Dashboard"
+                    <Breadcrumb
+                        title="Dashboard"
                         links={[
                             { text: "Dashboard", link: "/" },
                         ]}
-            />
-            
-                    
-                                            <div className="ml-64 p-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                                    
-                         {/* Sales Summary */}
+                    />
+                    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                        {/* Sales Summary */}
                         <div className="col-span-1 md:col-span-2">
                             <SalesGraph />
-                            
                         </div>
                         <DailySalesSummary />
                         <div className="col-span-1 md:col-span-2">
                             <RevenueGraph />
                         </div>
-                     
-                     
-                                    {/* Employee Stats */}
-                                    
-                                    <WeeklySales />
+                        {/* Employee Stats */}
+                        <WeeklySales />
                     </div>
-        </div>
-    </div>
+                </div>
+            </div>
         </>
     );
 }
