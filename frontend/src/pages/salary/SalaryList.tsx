@@ -34,15 +34,18 @@ const Salary_List: React.FC = () => {
         const data = employees.map((emp, index) => {
             const empCommissions = commissions.filter((c) => c.employeeId === emp.id);
 
-            // Calculate total sales and total discount
+            // Calculate total sales
             const totalSales = empCommissions.reduce((sum, c) => sum + (Number(c.sales) || 0), 0) || 0;
-            const totalDiscount = empCommissions.reduce((sum, c) => sum + (Number(c.discount) || 0), 0) || 0;
 
-            // Calculate net sales (sales after discount)
-            const netSales = totalSales - totalDiscount;
+            // Calculate total discount (as a percentage of total sales)
+            const totalDiscountPercent = empCommissions.reduce((sum, c) => sum + (Number(c.discount) || 0), 0) || 0;
+            const totalDiscountAmount = (totalSales * totalDiscountPercent) / 100;
 
             // Calculate total commission (based on net sales)
             const totalCommission = empCommissions.reduce((sum, c) => sum + (Number(c.amount) || 0), 0) || 0;
+
+            // Calculate total revenue (sales - discount amount - commission)
+            const totalRevenue = totalSales - totalDiscountAmount - totalCommission;
 
             // Calculate total salary (base salary + total commission)
             const totalSalary = (emp.baseSalary || 0) + totalCommission;
@@ -53,8 +56,8 @@ const Salary_List: React.FC = () => {
                 employeeName: `${emp.firstName} ${emp.lastName}`,
                 baseSalary: `₱${(emp.baseSalary || 0).toFixed(2)}`,
                 totalSales: `₱${totalSales.toFixed(2)}`,
-                totalDiscount: `₱${totalDiscount.toFixed(2)}`, // Add total discount to the table
-                totalRevenue: `₱${netSales.toFixed(2)}`, // Add total revenue to the table
+                totalDiscount: `${totalDiscountPercent.toFixed(2)}%`, // Display discount as a percentage
+                totalRevenue: `₱${totalRevenue.toFixed(2)}`, // Updated total revenue calculation
                 totalCommission: `₱${totalCommission.toFixed(2)}`,
                 totalSalary: `₱${totalSalary.toFixed(2)}`,
             };
@@ -109,11 +112,11 @@ const Salary_List: React.FC = () => {
             },
             {
                 header: "Total Discount",
-                accessorKey: "totalDiscount", // New column for total discount
+                accessorKey: "totalDiscount", // Display discount as a percentage
             },
             {
                 header: "Total Revenue",
-                accessorKey: "totalRevenue", // New column for total revenue
+                accessorKey: "totalRevenue", // Updated column for total revenue
             },
             {
                 header: "Total Commission",
