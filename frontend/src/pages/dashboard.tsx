@@ -6,6 +6,7 @@ import RevenueGraph from "../components/RevenueGraph";
 import DailySalesSummary from "../components/Sales/DailySalesSummary";
 import WeeklySales from "../components/Sales/WeeklySales";
 import EmployeeStats from "../components/EmployeeStats";
+import MonthlySales from "../components/Sales/MonthlySales";
 function Dashboard() {
     return (
         <>  
@@ -20,30 +21,28 @@ function Dashboard() {
             />
             
                     
-                                            <div className="ml-64 p-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                                    
-                         {/* Sales Summary */}
-                         
-                        <div className="col-span-2 md:col-span-2">
-                            <SalesGraph />
-                        </div>
-                        
-                        <DailySalesSummary />
-                        <div className="col-span-2 md:col-span-2">
-                        <RevenueGraph />
-                        </div>
-                     
-                     
-                                    {/* Employee Stats */}
-                                    
-                                    <WeeklySales />
-                                    <div className="col-span-2 md:col-span-2"></div>
-                                        <EmployeeStats />
-                                    
-                                    
-                                    
+            <div className="ml-64 p-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 
-                        </div>
+{/* Sales Summary Section */}
+<MonthlySales />
+<DailySalesSummary />
+<WeeklySales />
+
+{/* Full-width Sales Graphs */}
+<div className="col-span-1 md:col-span-2 lg:col-span-3">
+  <SalesGraph />
+</div>
+
+<div className="col-span-1 md:col-span-2 lg:col-span-3">
+  <RevenueGraph />
+</div>
+
+{/* Employee Stats */}
+<div className="col-span-5 md:col-span-5 lg:col-span-5"></div>
+<EmployeeStats />
+
+</div>
+
 
                     
         </div>

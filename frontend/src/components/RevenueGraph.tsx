@@ -33,7 +33,7 @@ const RevenueGraph: React.FC = () => {
             domain={[0, 'dataMax + 5000']} 
             tickFormatter={(value) => `${value / 1000}K`} 
           />
-          <Tooltip formatter={(value) => `$${value}`} />
+          <Tooltip formatter={(value) => `₱${value}`} />
           <Line type="monotone" dataKey="sales" stroke="#4CAF50" strokeWidth={2} />
         </LineChart>
       </ResponsiveContainer>
