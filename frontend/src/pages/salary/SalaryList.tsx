@@ -44,8 +44,8 @@ const Salary_List: React.FC = () => {
             // Calculate total commission (based on net sales)
             const totalCommission = empCommissions.reduce((sum, c) => sum + (Number(c.amount) || 0), 0) || 0;
 
-            // Calculate total salary (base salary + net sales - total commission)
-            const totalSalary = (emp.baseSalary || 0) + netSales - totalCommission;
+            // Calculate total salary (base salary + total commission)
+            const totalSalary = (emp.baseSalary || 0) + totalCommission;
 
             return {
                 id: index + 1,
@@ -54,6 +54,7 @@ const Salary_List: React.FC = () => {
                 baseSalary: `₱${(emp.baseSalary || 0).toFixed(2)}`,
                 totalSales: `₱${totalSales.toFixed(2)}`,
                 totalDiscount: `₱${totalDiscount.toFixed(2)}`, // Add total discount to the table
+                totalRevenue: `₱${netSales.toFixed(2)}`, // Add total revenue to the table
                 totalCommission: `₱${totalCommission.toFixed(2)}`,
                 totalSalary: `₱${totalSalary.toFixed(2)}`,
             };
@@ -109,6 +110,10 @@ const Salary_List: React.FC = () => {
             {
                 header: "Total Discount",
                 accessorKey: "totalDiscount", // New column for total discount
+            },
+            {
+                header: "Total Revenue",
+                accessorKey: "totalRevenue", // New column for total revenue
             },
             {
                 header: "Total Commission",
