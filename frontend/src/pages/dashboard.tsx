@@ -2,10 +2,10 @@ import Breadcrumb from "../components/breadcrumbs";
 import Header from "../layouts/header";
 import Sidemenu from "../layouts/sidemenu";
 import SalesGraph from "../components/SalesGraph";
-import RevenueGraph from "../components/RevenueGraph";
+import MonthlySales from "../components/Sales/MonthlySales";
 import DailySalesSummary from "../components/Sales/DailySalesSummary";
 import WeeklySales from "../components/Sales/WeeklySales";
-import MonthlySales from "../components/Sales/MonthlySales";
+
 
 function Dashboard() {
     return (
