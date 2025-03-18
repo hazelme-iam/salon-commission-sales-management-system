@@ -30,7 +30,7 @@ const MonthlySales: React.FC = () => {
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold mb-3">Today's Sales Summary</h2>
+      <h2 className="text-lg font-semibold mb-3">Monthly Sales Summary</h2>
       
       {/* Total Sales */}
       <div className="p-4 bg-gray-100 rounded-lg shadow-sm flex items-center gap-3 mb-3">

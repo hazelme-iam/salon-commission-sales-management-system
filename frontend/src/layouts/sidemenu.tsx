@@ -115,19 +115,10 @@ const Sidemenu: React.FC = () => {
                         >
                             <li>
                                 <Link to="/reports" className="block p-2 rounded-md text-black hover:bg-gray-100 transition-all duration-200">
-                                    Employee Commission & Sales
+                                    Employee Salary
                                 </Link>
                             </li>
-                            <li>
-                                <Link to="/monthlyreports" className="block p-2 rounded-md text-black hover:bg-gray-100 transition-all duration-200">
-                                    Monthly Revenue & Sales
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/weeklyreports" className="block p-2 rounded-md text-black hover:bg-gray-100 transition-all duration-200">
-                                    Weekly Revenue & Sales
-                                </Link>
-                            </li>
+                            
                             <li>
                                 <Link to="/todayreports" className="block p-2 rounded-md text-black hover:bg-gray-100 transition-all duration-200">
                                     Revenue & Sales

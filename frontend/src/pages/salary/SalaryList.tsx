@@ -62,25 +62,11 @@ const Salary_List: React.FC = () => {
         const data = employees.map((emp, index) => {
             const empCommissions = filteredCommissions.filter((c) => c.employeeId === emp.id);
 
-<<<<<<< HEAD
-            // Calculate total sales and total discount
-            const totalSales = empCommissions.reduce((sum, c) => sum + (Number(c.sales) || 0), 0) || 0;
-            const totalDiscount = empCommissions.reduce((sum, c) => sum + (Number(c.discount) || 0), 0) || 0;
-
-            // Calculate net sales (sales after discount)
-            const netSales = totalSales - totalDiscount;
-
-            // Calculate total commission (based on net sales)
-            const totalCommission = empCommissions.reduce((sum, c) => sum + (Number(c.amount) || 0), 0) || 0;
-
-            // Calculate total salary (base salary + total commission)
-=======
             const totalSales = empCommissions.reduce((sum, c) => sum + (Number(c.sales) || 0), 0) || 0;
             const totalDiscountPercent = empCommissions.reduce((sum, c) => sum + (Number(c.discount) || 0), 0) || 0;
             const totalDiscountAmount = (totalSales * totalDiscountPercent) / 100;
             const totalCommission = empCommissions.reduce((sum, c) => sum + (Number(c.amount) || 0), 0) || 0;
             const totalRevenue = totalSales - totalDiscountAmount - totalCommission;
->>>>>>> 791c37b2caa872cac298d2a8eaf32c024412fedb
             const totalSalary = (emp.baseSalary || 0) + totalCommission;
             const latestCommissionDate = empCommissions.length > 0
                 ? new Date(Math.max(...empCommissions.map((c) => new Date(c.date).getTime()))).toLocaleDateString()
@@ -92,13 +78,8 @@ const Salary_List: React.FC = () => {
                 employeeName: `${emp.firstName} ${emp.lastName}`,
                 baseSalary: `₱${(emp.baseSalary || 0).toFixed(2)}`,
                 totalSales: `₱${totalSales.toFixed(2)}`,
-<<<<<<< HEAD
-                totalDiscount: `₱${totalDiscount.toFixed(2)}`, // Add total discount to the table
-                totalRevenue: `₱${netSales.toFixed(2)}`, // Add total revenue to the table
-=======
                 totalDiscount: `${totalDiscountPercent.toFixed(2)}%`,
                 totalRevenue: `₱${totalRevenue.toFixed(2)}`,
->>>>>>> 791c37b2caa872cac298d2a8eaf32c024412fedb
                 totalCommission: `₱${totalCommission.toFixed(2)}`,
                 totalSalary: `₱${totalSalary.toFixed(2)}`,
                 date: latestCommissionDate,
@@ -135,36 +116,6 @@ const Salary_List: React.FC = () => {
                     </div>
                 ),
             },
-<<<<<<< HEAD
-            {
-                header: "Employee Name",
-                accessorKey: "employeeName",
-            },
-            {
-                header: "Base Salary",
-                accessorKey: "baseSalary",
-            },
-            {
-                header: "Total Sales",
-                accessorKey: "totalSales",
-            },
-            {
-                header: "Total Discount",
-                accessorKey: "totalDiscount", // New column for total discount
-            },
-            {
-                header: "Total Revenue",
-                accessorKey: "totalRevenue", // New column for total revenue
-            },
-            {
-                header: "Total Commission",
-                accessorKey: "totalCommission",
-            },
-            {
-                header: "Total Salary",
-                accessorKey: "totalSalary",
-            },
-=======
             { header: "Employee Name", accessorKey: "employeeName" },
             { header: "Base Salary", accessorKey: "baseSalary" },
             { header: "Total Sales", accessorKey: "totalSales" },
@@ -173,7 +124,6 @@ const Salary_List: React.FC = () => {
             { header: "Total Commission", accessorKey: "totalCommission" },
             { header: "Total Salary", accessorKey: "totalSalary" },
             { header: "Date", accessorKey: "date" },
->>>>>>> 791c37b2caa872cac298d2a8eaf32c024412fedb
         ],
         []
     );
