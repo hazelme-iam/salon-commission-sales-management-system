@@ -124,11 +124,11 @@ const SalesReportList: React.FC = () => {
             {/* Main Content with Left Margin */}
             <div className="main-content app-content ml-64 p-6 bg-gray-80 min-h-screen">
                 <Breadcrumb
-                    title="Today Report"
+                    title="Revenue and Sales Report"
                     links={[
                         { text: "Dashboard", link: "/" },
                     ]}
-                    active="Today Report"
+                    active="Revenue and Sales Report"
                 />
 
                 {/* Filter and Export Buttons */}
