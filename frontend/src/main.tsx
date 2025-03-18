@@ -18,7 +18,7 @@ import Salary_List from "./pages/salary/SalaryList";
 import Employee_List from "./pages/EmployeeInformation/EmployeeList";
 import Employee_Registration from "./pages/EmployeeInformation/EmployeeRegister";
 import Report_List from "./pages/reportinformation/employeeSalary";
-import TodayReportList from "./pages/reportinformation/today";
+import SalesReportList from "./pages/reportinformation/today";
 import Edit_Commission from "./pages/commission/edit";
 import Login from "./log-in/login";
 import ProtectedRoute from "./ProtectedRoute";
@@ -43,7 +43,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/employees" element={<Employee_List />} />
             <Route path="/employee/create" element={<Employee_Registration />} />
             <Route path="/reports" element={<Report_List />} />
-            <Route path="/todayreports" element={<TodayReportList />} />
+            <Route path="/todayreports" element={<SalesReportList />} />
             <Route path="/edit" element={<Edit_Commission />} />
             <Route path="/editemployee/:id" element={<Employee_Edit />} /> {/* Updated route */}
           </Route>
