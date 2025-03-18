@@ -1,186 +1,129 @@
-import React, { useState, useRef, useMemo, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { Button, MenuItem, Select } from "@mui/material";
-import { useReactTable, getCoreRowModel, flexRender, getPaginationRowModel } from "@tanstack/react-table";
 import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 
-// Define types
-interface Employee {
-    id: string;
-    firstName: string;
-    lastName: string;
-    baseSalary: number;
-}
-
-interface Commission {
-    employeeId: string;
-    sales: number;
-    discount: number;
-    amount: number;
-    date: string;
-}
+const sampleData = [
+    { id: 1, employee_id: "1", employee_name: "Twella", base_salary: "764432", total_sales: "45354", total_discount: "10000", total_revenue: "40",total_commission: "10000", total_salary: "10000", date: "2025-18-03", },
+    
+];
 
 const Report_List: React.FC = () => {
-    const [selectedDate, setSelectedDate] = useState<string>("all");
-    const [salaryData, setSalaryData] = useState<any[]>([]);
     const tableRef = useRef<HTMLDivElement>(null);
+    const [filter, setFilter] = useState<string>("all");
 
-    // Fetch salary data from localStorage (same as Salary_List component)
-    const fetchSalaryData = () => {
-        const employees: Employee[] = JSON.parse(localStorage.getItem("employees") || "[]");
-        const commissions: Commission[] = JSON.parse(localStorage.getItem("commissions") || "[]");
-
-        // Filter commissions based on the selected time period
+    // Filter data based on selected date range
+    const filteredData = sampleData.filter((row) => {
+        const rowDate = new Date(row.date);
         const currentDate = new Date();
-        const filteredCommissions = commissions.filter((comm) => {
-            const commissionDate = new Date(comm.date);
-            switch (selectedDate) {
-                case "this-day":
-                    return (
-                        commissionDate.getDate() === currentDate.getDate() &&
-                        commissionDate.getMonth() === currentDate.getMonth() &&
-                        commissionDate.getFullYear() === currentDate.getFullYear()
-                    );
-                case "this-week":
-                    const startOfWeek = new Date(currentDate);
-                    startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
-                    const endOfWeek = new Date(currentDate);
-                    endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
-                    return commissionDate >= startOfWeek && commissionDate <= endOfWeek;
-                case "this-month":
-                    return (
-                        commissionDate.getMonth() === currentDate.getMonth() &&
-                        commissionDate.getFullYear() === currentDate.getFullYear()
-                    );
-                default:
-                    return true;
-            }
-        });
-
-        // Process employee salaries
-        const data = employees.map((emp, index) => {
-            const empCommissions = filteredCommissions.filter((c) => c.employeeId === emp.id);
-
-            const totalSales = empCommissions.reduce((sum, c) => sum + (Number(c.sales) || 0), 0) || 0;
-            const totalDiscountPercent = empCommissions.reduce((sum, c) => sum + (Number(c.discount) || 0), 0) || 0;
-            const totalDiscountAmount = (totalSales * totalDiscountPercent) / 100;
-            const totalCommission = empCommissions.reduce((sum, c) => sum + (Number(c.amount) || 0), 0) || 0;
-            const totalRevenue = totalSales - totalDiscountAmount - totalCommission;
-            const totalSalary = (emp.baseSalary || 0) + totalCommission;
-            const latestCommissionDate = empCommissions.length > 0
-                ? new Date(Math.max(...empCommissions.map((c) => new Date(c.date).getTime()))).toLocaleDateString()
-                : "N/A";
-
-            return {
-                id: index + 1,
-                employeeId: emp.id,
-                employeeName: `${emp.firstName} ${emp.lastName}`,
-                baseSalary: `₱${(emp.baseSalary || 0).toFixed(2)}`,
-                totalSales: `₱${totalSales.toFixed(2)}`,
-                totalDiscount: `${totalDiscountPercent.toFixed(2)}%`,
-                totalRevenue: `₱${totalRevenue.toFixed(2)}`,
-                totalCommission: `₱${totalCommission.toFixed(2)}`,
-                totalSalary: `₱${totalSalary.toFixed(2)}`,
-                date: latestCommissionDate,
-            };
-        });
-
-        setSalaryData(data);
-    };
-
-    useEffect(() => {
-        fetchSalaryData();
-    }, [selectedDate]);
-
-    // Define columns for the table
-    const columns = useMemo(
-        () => [
-            { header: "ID", accessorKey: "id" },
-            { header: "Employee ID", accessorKey: "employeeId" },
-            { header: "Employee Name", accessorKey: "employeeName" },
-            { header: "Base Salary", accessorKey: "baseSalary" },
-            { header: "Total Sales", accessorKey: "totalSales" },
-            { header: "Total Discount", accessorKey: "totalDiscount" },
-            { header: "Total Revenue", accessorKey: "totalRevenue" },
-            { header: "Total Commission", accessorKey: "totalCommission" },
-            { header: "Total Salary", accessorKey: "totalSalary" },
-            { header: "Date", accessorKey: "date" },
-        ],
-        []
-    );
-
-    // Initialize TanStack Table
-    const table = useReactTable({
-        data: salaryData,
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(), // Enable pagination
-        initialState: {
-            pagination: {
-                pageSize: 5, // Set the number of rows per page
-            },
-        },
+        switch (filter) {
+            case "today":
+                return (
+                    rowDate.getDate() === currentDate.getDate() &&
+                    rowDate.getMonth() === currentDate.getMonth() &&
+                    rowDate.getFullYear() === currentDate.getFullYear()
+                );
+            case "this-week":
+                const startOfWeek = new Date(currentDate);
+                startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
+                const endOfWeek = new Date(currentDate);
+                endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
+                return rowDate >= startOfWeek && rowDate <= endOfWeek;
+            case "this-month":
+                return (
+                    rowDate.getMonth() === currentDate.getMonth() &&
+                    rowDate.getFullYear() === currentDate.getFullYear()
+                );
+            default:
+                return true; // "all" filter
+        }
     });
 
-    // Handle print functionality
-    const handlePrint = () => {
-        if (tableRef.current) {
-            const printWindow = window.open("", "", "width=800,height=600");
-            printWindow?.document.write(`
+    // **Print Report**
+    const printReport = () => {
+        const printWindow = window.open("", "_blank");
+        if (printWindow) {
+            printWindow.document.write(`
                 <html>
-                <head>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 20px; }
-                        h1 { text-align: center; line-height: 1.5; margin-bottom: 20px; }
-                        .header-section { text-align: center; margin-bottom: 30px; line-height: 1.4; }
-                        .header-section h2 { margin-bottom: 5px; }
-                        .signature-section { margin-top: 40px; text-align: right; }
-                        .signature-line { margin-top: 50px; border-top: 1px solid black; width: 200px; display: inline-block; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                        th, td { border: 1px solid black; padding: 8px; text-align: center; }
-                        th { background-color: #f2f2f2; }
-                    </style>
-                </head>
-                <body>
-                    <div class="header-section">
-                        <h2>Danica's Beauty Lounge</h2>
-                        <p>Puerto, Cagayan De Oro City</p>
-                    </div>
-                    <h1>Weekly Report</h1>
-                    <p>${new Date().toLocaleDateString()}</p>
-                    <table>
-                        <thead>
-                            ${table.getHeaderGroups().map(headerGroup => `
+                    <head>
+                        <title>Employee Salary Report</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 20px; }
+                            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                            th { background-color: #f4f4f4; }
+                        </style>
+                    </head>
+                    <body>
+                        <h2>Employee Salary Report</h2>
+                        <table>
+                            <thead>
                                 <tr>
-                                    ${headerGroup.headers.map(header => `
-                                        <th>${flexRender(header.column.columnDef.header, header.getContext())}</th>
-                                    `).join("")}
+                                    <th>ID</th>
+                                    <th>Employee ID</th>
+                                    <th>Employee Name</th>
+                                    <th>Base Salary</th>
+                                    <th>Total Sales</th>
+                                    <th>Total Discount</th>
+                                    <th>Total Revenue</th>
+                                    <th>Total Commission</th>
+                                    <th>Total Salary</th>
+                                    <th>Date</th>
                                 </tr>
-                            `).join("")}
-                        </thead>
-                        <tbody>
-                            ${salaryData.map(row => `
-                                <tr>
-                                    ${Object.values(row).map(value => `
-                                        <td>${value}</td>
-                                    `).join("")}
-                                </tr>
-                            `).join("")}
-                        </tbody>
-                    </table>
-                    <div class="signature-section">
-                        <p>Authorized Signature</p>
-                        <div class="signature-line"></div>
-                    </div>
-                </body>
+                            </thead>
+                            <tbody>
+                                ${filteredData.map(row => `
+                                    <tr>
+                                        <td>${row.id}</td>
+                                        <td>${row.employee_id}</td>
+                                        <td>${row.employee_name}</td>
+                                        <td>${row.base_salary}</td>
+                                        <td>${row.total_sales}</td>
+                                        <td>${row.total_discount}</td>
+                                        <td>${row.total_revenue}</td>
+                                        <td>${row.total_commission}</td>
+                                        <td>${row.total_salary}</td>
+                                        <td>${row.date}</td>
+                                    </tr>
+                                `).join("")}
+                            </tbody>
+                        </table>
+                    </body>
                 </html>
             `);
-            printWindow?.document.close();
-            printWindow?.print();
+            printWindow.document.close();
+            printWindow.print();
         }
     };
-    
+
+    // **Export CSV**
+    const exportCSV = () => {
+        const csvContent = [
+            ["ID","Employee ID", "Employee Name", "Base Salary", "Total Sales", "Total Discount", "Total Revenue", "Total Commission", "Total Salary","Date"],
+            ...filteredData.map(row => [row.id, row.total_sales, row.commission, row.total_revenue, row.transactions, row.date])
+        ].map(e => e.join(",")).join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "monthly_report.csv";
+        link.click();
+    };
+
+    // **Export TXT**
+    const exportTXT = () => {
+        const content = filteredData.map(row =>
+            `ID: ${row.id}, Employee ID: ${row.employee_id}, Employee Name: ${row.employee_name}, Base Salary: ${row.base_salary}, Total Sales: ${row.total_sales}, Total Discount: ${row.total_discount}, Total Revenue: ${row.total_revenue}, Total Commission: ${row.total_commission}, Total Salary: ${row.total_salary},Date: ${row.date}\n`
+        ).join("\n");
+
+        const blob = new Blob([content], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "monthly_report.txt";
+        link.click();
+    };
+
     return (
         <>
             <Header />
@@ -188,87 +131,73 @@ const Report_List: React.FC = () => {
             {/* Main Content with Left Margin */}
             <div className="main-content app-content ml-64 p-6 bg-gray-80 min-h-screen">
                 <Breadcrumb
-                    title="Employee Commission & Salary Report"
-                    links={[{ text: "Dashboard", link: "/" }]}
-                    active="Salary Report"
+                    title="Employee Salary"
+                    links={[
+                        { text: "Dashboard", link: "/" },
+                    ]}
+                    active="Employee Salary"
                 />
 
-                {/* Filter and Print Buttons */}
+                {/* Filter and Export Buttons */}
                 <div className="mb-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <label className="font-medium" > Filter by Date:</label>
+                        <label className="font-medium">Filter by Date:</label>
                         <Select
-                            value={selectedDate}
-                            onChange={(e) => setSelectedDate(e.target.value)}
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
                             displayEmpty
                             sx={{ width: "150px", height: "30px", fontSize: "14px" }}
                         >
-                            <MenuItem value="all">All Dates</MenuItem>
-                            <MenuItem value="this-day">Today</MenuItem>
+                            <MenuItem value="all">All</MenuItem>
+                            <MenuItem value="today">Today</MenuItem>
                             <MenuItem value="this-week">This Week</MenuItem>
                             <MenuItem value="this-month">This Month</MenuItem>
                         </Select>
-                        <Button variant="contained" color="primary" onClick={handlePrint}>Print</Button>
                     </div>
 
-                    
+                    <div className="flex gap-4">
+                        <Button variant="contained" color="primary" onClick={printReport}>Print Report</Button>
+                        <Button variant="contained" color="secondary" onClick={exportCSV}>Export CSV</Button>
+                        <Button variant="outlined" color="default" onClick={exportTXT}>Export TXT</Button>
+                    </div>
                 </div>
 
-                {/* TanStack Table */}
-                <div className="box overflow-hidden main-content-card" ref={tableRef}>
+                {/* Report Table */}
+                <div className="box overflow-hidden main-content-card">
                     <div className="box-body p-5">
-                        <table className="min-w-full bg-white">
-                            <thead>
-                                {table.getHeaderGroups().map(headerGroup => (
-                                    <tr key={headerGroup.id} className="bg-gray-200">
-                                        {headerGroup.headers.map(header => (
-                                            <th
-                                                key={header.id}
-                                                className="px-6 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase whitespace-nowrap"
-                                            >
-                                                {flexRender(header.column.columnDef.header, header.getContext())}
-                                            </th>
-                                        ))}
+                        <div ref={tableRef}>
+                            <table className="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className="border border-gray-300 px-4 py-2">ID</th>
+                                        <th className="border border-gray-300 px-4 py-2">Employee ID</th>
+                                        <th className="border border-gray-300 px-4 py-2">Employee Name</th>
+                                        <th className="border border-gray-300 px-4 py-2">Base Salary</th>
+                                        <th className="border border-gray-300 px-4 py-2">Total Sales</th>
+                                        <th className="border border-gray-300 px-4 py-2">Total Discount</th>
+                                        <th className="border border-gray-300 px-4 py-2">Total Revenue</th>
+                                        <th className="border border-gray-300 px-4 py-2">Total Commission</th>
+                                        <th className="border border-gray-300 px-4 py-2">Total Salary</th>
+                                        <th className="border border-gray-300 px-4 py-2">Date</th>
                                     </tr>
-                                ))}
-                            </thead>
-                            <tbody>
-                                {table.getRowModel().rows.map(row => (
-                                    <tr key={row.id} className="text-center">
-                                        {row.getVisibleCells().map(cell => (
-                                            <td
-                                                key={cell.id}
-                                                className="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
-                                            >
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </td>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-
-                        {/* Pagination Controls */}
-                        <div className="flex items-center justify-between mt-4">
-                            <div className="flex items-center gap-2">
-                                <button
-                                    onClick={() => table.previousPage()}
-                                    disabled={!table.getCanPreviousPage()}
-                                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                                >
-                                    Previous
-                                </button>
-                                <button
-                                    onClick={() => table.nextPage()}
-                                    disabled={!table.getCanNextPage()}
-                                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                                >
-                                    Next
-                                </button>
-                            </div>
-                            <span className="text-sm">
-                                Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-                            </span>
+                                </thead>
+                                <tbody>
+                                    {filteredData.map((row, index) => (
+                                        <tr key={index} className="text-center">
+                                            <td className="border border-gray-300 px-4 py-2">{row.id}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.employee_id}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.employee_name}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.base_salary}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.total_sales}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.total_discount}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.total_revenue}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.total_commission}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.total_salary}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.date}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
