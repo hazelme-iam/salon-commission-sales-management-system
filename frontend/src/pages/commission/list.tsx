@@ -1,238 +1,188 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { useReactTable, getCoreRowModel, flexRender, getPaginationRowModel } from "@tanstack/react-table";
-import { Link, useNavigate } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import React, { useRef, useState } from "react";
+import { Button, MenuItem, Select } from "@mui/material";
 import Breadcrumb from "../../components/breadcrumbs";
 import Header from "../../layouts/header";
 import Sidemenu from "../../layouts/sidemenu";
 
-interface Commission {
-    id: string;
-    employeeId: string;
-    employeeName: string;
-    customerName: string;
-    service: string;
-    sales: string;
-    discount: string;
-    amount: string;
-    date: string;
-}
+const sampleData = [
+    { id: 1, date: "2024-03-01", total_sales: "764432", commission: "45354", total_revenue: "10000", transactions: "40" },
+    { id: 2, date: "2024-03-02", total_sales: "864532", commission: "55364", total_revenue: "12000", transactions: "45" },
+    { id: 3, date: "2024-03-03", total_sales: "964632", commission: "65374", total_revenue: "14000", transactions: "50" },
+];
 
-const Commission_List: React.FC = () => {
-    const [commissions, setCommissions] = useState<Commission[]>([]);
-    const [filter, setFilter] = useState<string>("all"); // State for filter
-    const navigate = useNavigate();
+const SalesReportList: React.FC = () => {
+    const tableRef = useRef<HTMLDivElement>(null);
+    const [filter, setFilter] = useState<string>("all");
 
-    // Fetch commissions data from localStorage
-    useEffect(() => {
-        const storedCommissions = JSON.parse(localStorage.getItem("commissions") || "[]");
-        setCommissions(storedCommissions);
-    }, []);
-
-    // Handle delete
-    const handleDelete = (id: string) => {
-        if (window.confirm("Are you sure you want to delete this commission?")) {
-            setCommissions((prevCommissions) => {
-                const updatedCommissions = prevCommissions.filter((comm) => comm.id !== id);
-                localStorage.setItem("commissions", JSON.stringify(updatedCommissions)); // Sync with localStorage
-                return updatedCommissions;
-            });
-        }
-    };
-
-    // Handle update
-    const handleUpdate = (id: string) => {
-        navigate(`/edit?id=${id}`);
-    };
-
-    // Filter commissions based on the selected time period
-    const filteredCommissions = useMemo(() => {
+    // Filter data based on selected date range
+    const filteredData = sampleData.filter((row) => {
+        const rowDate = new Date(row.date);
         const currentDate = new Date();
         switch (filter) {
-            case "this-day":
-                return commissions.filter((comm) => {
-                    const commissionDate = new Date(comm.date);
-                    return (
-                        commissionDate.getDate() === currentDate.getDate() &&
-                        commissionDate.getMonth() === currentDate.getMonth() &&
-                        commissionDate.getFullYear() === currentDate.getFullYear()
-                    );
-                });
+            case "today":
+                return (
+                    rowDate.getDate() === currentDate.getDate() &&
+                    rowDate.getMonth() === currentDate.getMonth() &&
+                    rowDate.getFullYear() === currentDate.getFullYear()
+                );
             case "this-week":
                 const startOfWeek = new Date(currentDate);
-                startOfWeek.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the week (Sunday)
+                startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
                 const endOfWeek = new Date(currentDate);
-                endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay())); // End of the week (Saturday)
-                return commissions.filter((comm) => {
-                    const commissionDate = new Date(comm.date);
-                    return commissionDate >= startOfWeek && commissionDate <= endOfWeek;
-                });
+                endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
+                return rowDate >= startOfWeek && rowDate <= endOfWeek;
             case "this-month":
-                return commissions.filter((comm) => {
-                    const commissionDate = new Date(comm.date);
-                    return (
-                        commissionDate.getMonth() === currentDate.getMonth() &&
-                        commissionDate.getFullYear() === currentDate.getFullYear()
-                    );
-                });
+                return (
+                    rowDate.getMonth() === currentDate.getMonth() &&
+                    rowDate.getFullYear() === currentDate.getFullYear()
+                );
             default:
-                return commissions; // Return all commissions
+                return true; // "all" filter
         }
-    }, [commissions, filter]);
-
-    // Table columns
-    const columns = useMemo(
-        () => [
-            { header: "ID", accessorKey: "id" },
-            { header: "Employee", accessorKey: "employeeName" },
-            { header: "Customer Name", accessorKey: "customerName" },
-            { header: "Service", accessorKey: "service" },
-            { header: "Sales", accessorKey: "sales" },
-            { header: "Discount", accessorKey: "discount" },
-            { header: "Commission Amount", accessorKey: "amount" },
-            { header: "Date", accessorKey: "date" },
-            {
-                header: "Actions",
-                cell: ({ row }: any) => (
-                    <div className="flex gap-2">
-                        <button
-                            onClick={() => handleUpdate(row.original.id)}
-                            className="text-blue-500 hover:text-blue-700"
-                            title="Edit"
-                        >
-                            <FaEdit size={18} />
-                        </button>
-                        <button
-                            onClick={() => handleDelete(row.original.id)}
-                            className="text-red-500 hover:text-red-700"
-                            title="Delete"
-                        >
-                            <FaTrash size={18} />
-                        </button>
-                    </div>
-                ),
-            },
-        ],
-        []
-    );
-
-    // React Table instance
-    const table = useReactTable({
-        data: filteredCommissions,
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(), // Enable pagination
-        initialState: {
-            pagination: {
-                pageSize: 15, // Set the number of rows per page
-            },
-        },
     });
+
+    // **Print Report**
+    const printReport = () => {
+        const printWindow = window.open("", "_blank");
+        if (printWindow) {
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Monthly Report</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 20px; }
+                            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                            th { background-color: #f4f4f4; }
+                        </style>
+                    </head>
+                    <body>
+                        <h2>Monthly Report</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Total Sales</th>
+                                    <th>Total Commission</th>
+                                    <th>Total Revenue</th>
+                                    <th>Number of Transactions</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${filteredData.map(row => `
+                                    <tr>
+                                        <td>${row.id}</td>
+                                        <td>${row.total_sales}</td>
+                                        <td>${row.commission}</td>
+                                        <td>${row.total_revenue}</td>
+                                        <td>${row.transactions}</td>
+                                        <td>${row.date}</td>
+                                    </tr>
+                                `).join("")}
+                            </tbody>
+                        </table>
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+    };
+
+    // **Export CSV**
+    const exportCSV = () => {
+        const csvContent = [
+            ["ID", "Total Sales", "Total Commission", "Total Revenue", "Number of Transactions", "Date"],
+            ...filteredData.map(row => [row.id, row.total_sales, row.commission, row.total_revenue, row.transactions, row.date])
+        ].map(e => e.join(",")).join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "monthly_report.csv";
+        link.click();
+    };
+
+    // **Export TXT**
+    const exportTXT = () => {
+        const content = filteredData.map(row =>
+            `ID: ${row.id}, Total Sales: ${row.total_sales}, Total Commission: ${row.commission}, Total Revenue: ${row.total_revenue}, Number of Transactions: ${row.transactions}, Date: ${row.date}\n`
+        ).join("\n");
+
+        const blob = new Blob([content], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "monthly_report.txt";
+        link.click();
+    };
 
     return (
         <>
             <Header />
             <Sidemenu />
-            <div className="main-content app-content">
-                <div className="container-fluid">
-                    <Breadcrumb
-                        title="Manage Commissions"
-                        links={[{ text: "Dashboard", link: "/" }]}
-                        active="Commissions"
-                        buttons={
-                            <Link
-                                to="/commissions/create"
-                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2"
-                            >
-                                <i className="ri-add-line"></i> Add Commission
-                            </Link>
-                        }
-                    />
+            {/* Main Content with Left Margin */}
+            <div className="main-content app-content ml-64 p-6 bg-gray-100 min-h-screen">
+                <Breadcrumb
+                    title="Today Report"
+                    links={[
+                        { text: "Dashboard", link: "/" },
+                    ]}
+                    active="Today Report"
+                />
 
-                    <div className="grid grid-cols-12 gap-x-6">
-                        <div className="xxl:col-span-12 col-span-12">
-                            <div className="box overflow-hidden main-content-card">
-                                <div className="box-body p-5">
-                                    {/* Compact Filter Dropdown */}
-                                    <div className="flex items-center gap-2 mb-4">
-                                        <label htmlFor="filter" className="font-medium">Filter:</label>
-                                        <select
-                                            id="filter"
-                                            value={filter}
-                                            onChange={(e) => setFilter(e.target.value)}
-                                            className="border rounded-sm py-2 px-3 text-sm min-w-[150px] w-full max-w-[200px] truncate"
-                                        >
-                                            <option value="all">All</option>
-                                            <option value="this-day">Today</option>
-                                            <option value="this-week">This Week</option>
-                                            <option value="this-month">This Month</option>
-                                        </select>
-                                    </div>
+                {/* Filter and Export Buttons */}
+                <div className="mb-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <label className="font-medium">Filter by Date:</label>
+                        <Select
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
+                            displayEmpty
+                            sx={{ width: "150px", height: "30px", fontSize: "14px" }}
+                        >
+                            <MenuItem value="all">All</MenuItem>
+                            <MenuItem value="today">Today</MenuItem>
+                            <MenuItem value="this-week">This Week</MenuItem>
+                            <MenuItem value="this-month">This Month</MenuItem>
+                        </Select>
+                    </div>
 
-                                    {/* Table */}
-                                    <div className="overflow-x-auto">
-                                        <table className="min-w-full bg-white">
-                                            <thead>
-                                                {table.getHeaderGroups().map((headerGroup) => (
-                                                    <tr key={headerGroup.id}>
-                                                        {headerGroup.headers.map((header) => (
-                                                            <th
-                                                                key={header.id}
-                                                                className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                                                            >
-                                                                {flexRender(
-                                                                    header.column.columnDef.header,
-                                                                    header.getContext()
-                                                                )}
-                                                            </th>
-                                                        ))}
-                                                    </tr>
-                                                ))}
-                                            </thead>
-                                            <tbody>
-                                                {table.getRowModel().rows.map((row) => (
-                                                    <tr key={row.id}>
-                                                        {row.getVisibleCells().map((cell) => (
-                                                            <td
-                                                                key={cell.id}
-                                                                className="px-6 py-4 border-b border-gray-200"
-                                                            >
-                                                                {flexRender(
-                                                                    cell.column.columnDef.cell,
-                                                                    cell.getContext()
-                                                                )}
-                                                            </td>
-                                                        ))}
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                    <div className="flex gap-4">
+                        <Button variant="contained" color="primary" onClick={printReport}>Print Report</Button>
+                        <Button variant="contained" color="secondary" onClick={exportCSV}>Export CSV</Button>
+                        <Button variant="outlined" color="default" onClick={exportTXT}>Export TXT</Button>
+                    </div>
+                </div>
 
-                                    {/* Pagination Controls */}
-                                    <div className="flex items-center justify-between mt-4">
-                                        <div className="flex items-center gap-2">
-                                            <button
-                                                onClick={() => table.previousPage()}
-                                                disabled={!table.getCanPreviousPage()}
-                                                className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                                            >
-                                                Previous
-                                            </button>
-                                            <button
-                                                onClick={() => table.nextPage()}
-                                                disabled={!table.getCanNextPage()}
-                                                className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                                            >
-                                                Next
-                                            </button>
-                                        </div>
-                                        <span className="text-sm">
-                                            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                {/* Report Table */}
+                <div className="box overflow-hidden main-content-card">
+                    <div className="box-body p-5">
+                        <div ref={tableRef}>
+                            <table className="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className="border border-gray-300 px-4 py-2">ID</th>
+                                        <th className="border border-gray-300 px-4 py-2">Total Sales</th>
+                                        <th className="border border-gray-300 px-4 py-2">Total Commission</th>
+                                        <th className="border border-gray-300 px-4 py-2">Total Revenue</th>
+                                        <th className="border border-gray-300 px-4 py-2">Number of Transactions</th>
+                                        <th className="border border-gray-300 px-4 py-2">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredData.map((row, index) => (
+                                        <tr key={index} className="text-center">
+                                            <td className="border border-gray-300 px-4 py-2">{row.id}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.total_sales}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.commission}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.total_revenue}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.transactions}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{row.date}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -241,4 +191,4 @@ const Commission_List: React.FC = () => {
     );
 };
 
-export default Commission_List;
+export default SalesReportList;
