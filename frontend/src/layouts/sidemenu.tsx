@@ -130,7 +130,7 @@ const Sidemenu: React.FC = () => {
                             </li>
                             <li>
                                 <Link to="/todayreports" className="block p-2 rounded-md text-black hover:bg-gray-100 transition-all duration-200">
-                                    Today's Revenue & Sales
+                                    Revenue & Sales
                                 </Link>
                             </li>
                         </motion.ul>
