@@ -13,7 +13,7 @@ interface Commission {
     sales: string;
     discount: string;
     amount: string;
-    date: string;
+    date: string; // Ensure date is included
 }
 
 interface Employee {
@@ -29,6 +29,7 @@ function Edit() {
     const navigate = useNavigate();
     const [commission, setCommission] = useState<Commission | null>(null);
     const [employees, setEmployees] = useState<Employee[]>([]); // List of employees
+    const [error, setError] = useState<string | null>(null); // Error state for validation
 
     // Initial commission data
     const initialCommissionData: Commission = {
@@ -40,7 +41,7 @@ function Edit() {
         sales: "",
         discount: "",
         amount: "",
-        date: "",
+        date: "", // Initialize date field
     };
 
     const [commissionData, setCommissionData] = useState<Commission>(initialCommissionData);
@@ -108,6 +109,15 @@ function Edit() {
     // Handle form submission
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Validate date field
+        if (!commissionData.date) {
+            setError("Date is required."); // Set error message
+            return; // Skip submission if date is empty
+        }
+
+        // Clear any previous errors
+        setError(null);
 
         // Update the commission in localStorage
         const storedCommissions = JSON.parse(localStorage.getItem("commissions") || "[]");
@@ -241,6 +251,7 @@ function Edit() {
                                                     onChange={handleChange}
                                                     className="ti-form-input rounded-sm"
                                                 />
+                                                {error && <p className="text-red-500 text-sm mt-1">{error}</p>} {/* Display error message */}
                                             </div>
                                         </div>
 
